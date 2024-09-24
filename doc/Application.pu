@@ -1,0 +1,20 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class app {
+    +start(): void
+    +end(): void
+    {static} +getIstance(): app*
+    -initApp(): bool
+    -endApp(): bool
+    -loopApp(): void
+    {static} -s_app: app*
+    -app()
+}
+
+note right of app
+  (Singleton class)
+end note 
+
+@enduml
+

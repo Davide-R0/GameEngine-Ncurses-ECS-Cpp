@@ -1,7 +1,7 @@
 # CLI GAME ENGINE
 - cli 
 - ncurses
-- ECS
+- ECS: Entity, Component, Systems
 
 ## Requirements
 - Linux
@@ -16,6 +16,24 @@ The main flags are:
 - form?
 
 
-```shell
+## ECS
 
-```
+### Conventions:
+- before component class name `C..`, es: `CSprite`, `CBox`, ...
+- before component instatiation of class `c...`, es: `sSprite`, ...
+- this two roule are the same with systems with `s`
+- private member variable have `m_...`, es: `m_components`, ...
+
+### General:
+- Components: store only pure data, no logic
+
+- Systems are function or classes
+- Systems operate on entities that have some precise component
+
+
+### Systems order in game loop:
+1. Input
+2. Movement
+3. Physics
+4. AI
+5. Renderer

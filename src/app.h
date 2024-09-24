@@ -14,19 +14,19 @@ class app {
        
         void start();
 
-        bool initApp();
-        
-        void loopApp();
-
         void end();
 
-        bool endApp();
-    private:
+            private:
         /**********************************/
         app() {}; //constructor
         static app* s_app;
         /**********************************/
+        
+        bool initApp();
 
+        void loopApp();
+
+        bool endApp();
 
 };
 
