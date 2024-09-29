@@ -2,6 +2,7 @@
 - cli 
 - ncurses
 - ECS: Entity, Component, Systems
+- makefile
 
 ## Requirements
 - Linux

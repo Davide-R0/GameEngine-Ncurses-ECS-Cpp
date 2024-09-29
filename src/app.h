@@ -16,7 +16,7 @@ class app {
 
         void end();
 
-            private:
+    private:
         /**********************************/
         app() {}; //constructor
         static app* s_app;
