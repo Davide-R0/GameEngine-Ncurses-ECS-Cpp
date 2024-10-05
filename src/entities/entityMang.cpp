@@ -31,6 +31,13 @@ void entityMang::removeEntity(const ENTITY_TYPE& tag, const std::size_t id){
     m_toRemove.push_back(m_entities[id]); //ricontrollare
 }
 
+const entityVec& entityMang::getEntities() const{
+    return m_entities;
+}
+const entityVec& entityMang::getEntities(const ENTITY_TYPE& tag) const{
+    return m_entityMap[tag];
+}
+
 //called at the beggining of each game frame
 void entityMang::update () {
     for (auto e : m_toAdd) {
@@ -39,7 +46,13 @@ void entityMang::update () {
         //add error message
     }
     m_toAdd.clear();
-   
+    
+    //???? to remove dead entities
+    /*
+    for (auto& [tag, m_entities] : m_entityMap){
+        removeDeadEntity(entityVec);
+    }*/
+    /*
     for (auto e : m_toRemove) {
         //if (!e.isAlive()){
             //remove from vector
@@ -51,13 +64,22 @@ void entityMang::update () {
             m_entities.erase(i);
         }*/
         
-        std::cout<< "Oggetto con tag " << e->getTag() << " e id " << e->getId() << " rimosso" << std::endl;
+        //std::cout<< "Oggetto con tag " << e->getTag() << " e id " << e->getId() << " rimosso" << std::endl;
         //m_entities.erase(std::find(m_entities.begin(), m_entities.end(), e));
         /*
         m_entities.push_back(e);
         m_entityMap[e->getTag()].push_back(e);
         */
-    }
+    //}
     m_toRemove.clear();
 
+}
+
+void entityMang::removeDeadEntity(entityVec& vec) {
+    for (auto e : vec) {
+        if (!e->isAlive()){
+            //remove from vec
+            //see std::remove_if()
+        }
+    }
 }

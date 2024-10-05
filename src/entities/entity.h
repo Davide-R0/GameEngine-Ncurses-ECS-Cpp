@@ -17,15 +17,15 @@
 class entity {
     
     public:
-        
-        //        //????????????        
+        entity(const ENTITY_TYPE tag, std::size_t id);
+              
         //void entityRemove(entityMang* manager); //set alive = false and add the entity to remove in the m_toRemove vector in the entityManger
         
         //here all shared_ptr of all the components
         std::shared_ptr<CTransform> cTransform;
 
         
-        ENTITY_TYPE& getTag() const;
+        ENTITY_TYPE getTag() const;
         std::size_t getId() const;
         bool isAlive() const;
         void destroy();
@@ -40,8 +40,8 @@ class entity {
     private:
         friend class entityMang;
 
-        //private constructor
-        entity(const ENTITY_TYPE tag, std::size_t id);
+        //should be private constructor
+        //entity(const ENTITY_TYPE tag, std::size_t id);
 
         const std::size_t m_id = 0;
         const ENTITY_TYPE m_tag = DEFAULT;

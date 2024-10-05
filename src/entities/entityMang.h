@@ -32,6 +32,8 @@ class entityMang {
 
         const entityVec& getEntities() const;
         const entityVec& getEntities(const ENTITY_TYPE& tag) const;
+        
+        void removeDeadEntity(entityVec& vec);
 
     private:
         /**********************************/

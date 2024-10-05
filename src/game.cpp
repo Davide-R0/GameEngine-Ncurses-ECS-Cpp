@@ -44,9 +44,19 @@ void game::sUserInput() {
     //only reading user input here, no implementation of input logic!!
     
     //add event object
-
-    //
+    /* esempio:
+     se è premuto il pulsante "w" 
+     then 
+        m_player->cInput->up = true; //si modifica la variabile nel sistema di input 
+    */
+    
+    //la logica dell'input è eseguita dalla funzione sMovement()
 }
+
+void game::sMovement() {
+    //read the m_player->cInput and then change the component cTransform of the player entity
+}
+
 
 void game::sRender() {
     //clear window
@@ -62,6 +72,17 @@ void game::sRender() {
     */
 
     //display
+}
+
+void game::sCollision() {
+    //example:
+    /*
+    for (auto b : m_entities->getEntities(BULLET)) {
+        for (auto e : m_entities->getEntities(ENEMY){
+            //........
+        }
+    }
+    */
 }
 
 
