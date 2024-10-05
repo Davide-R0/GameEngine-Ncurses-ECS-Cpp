@@ -1,5 +1,8 @@
 #include "app.h"
 
+#include <iostream>
+#include <ncurses.h>
+
 /**********************************/
 app *app::s_app = nullptr;
 

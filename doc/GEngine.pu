@@ -4,4 +4,18 @@ class GameEng {
 
 }
 
+
+class enittyMang {
+    
+}
+
+class entity {
+
+}
+
+class board {
+    
+}
+board --> entity
+
 @enduml
