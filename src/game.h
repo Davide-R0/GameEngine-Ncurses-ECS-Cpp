@@ -40,6 +40,12 @@ class game {
         void sUserInput();
         void sCollision();
         //...
+
+        //ncurses rendering
+        void ncRendering(std::shared_ptr<entity> a);
+
+        //system to check collision on a board
+        void sNcCollide(std::shared_ptr<entity> a, std::shared_ptr<entity> b);
         
         //spowning systems
         void sSpownPlayer();

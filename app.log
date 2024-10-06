@@ -1,26 +1,32 @@
-[90m(15:33:21)[0m [96m[INFO]:[0m Application Object created
+[90m(18:59:45)[0m [96m[INFO]:[0m Application Object created
 
-[90m(15:33:21)[0m [96m[INFO]:[0m Start Application
+[90m(18:59:45)[0m [96m[INFO]:[0m Start Application
 
-[90m(15:33:21)[0m [96m[INFO]:[0m Start up terminal size (210,53)
+[90m(18:59:45)[0m [96m[INFO]:[0m Start up terminal size (210,53)
 
-[90m(15:33:21)[0m [96m[INFO]:[0m Game object created
+[90m(18:59:45)[0m [96m[INFO]:[0m Game object created
 
-[90m(15:33:21)[0m [96m[INFO]:[0m Entity Manager Object created
+[90m(18:59:45)[0m [96m[INFO]:[0m Entity Manager Object created
 
-[90m(15:33:21)[0m [95m[DEBUG]:[0m Oggetto con tag 3 e id 0 aggiunto
+[90m(18:59:45)[0m [95m[DEBUG]:[0m Oggetto con tag 3 e id 0 aggiunto
 
-[90m(15:33:21)[0m [95m[DEBUG]:[0m Entity tag 3 and id 0 added
+[90m(18:59:45)[0m [95m[DEBUG]:[0m Entity tag 3 and id 0 added
 
-[90m(15:33:21)[0m [96m[INFO]:[0m Start Game
+[90m(18:59:45)[0m [96m[INFO]:[0m Start Game
 
-[90m(15:33:21)[0m [96m[INFO]:[0m Game loop started
+[90m(18:59:45)[0m [96m[INFO]:[0m Game loop started
 
-[90m(15:33:22)[0m [95m[DEBUG]:[0m Pressed: 3
+[90m(18:59:47)[0m [95m[DEBUG]:[0m Pressed: 115
 
-[90m(15:33:22)[0m [96m[INFO]:[0m Game loop ended
+[90m(18:59:47)[0m [95m[DEBUG]:[0m Pressed: 102
 
-[90m(15:33:22)[0m [96m[INFO]:[0m End Game
+[90m(18:59:47)[0m [95m[DEBUG]:[0m Pressed: 102
 
-[90m(15:33:22)[0m [96m[INFO]:[0m End Application
+[90m(18:59:49)[0m [95m[DEBUG]:[0m Pressed: 3
+
+[90m(18:59:49)[0m [96m[INFO]:[0m Game loop ended
+
+[90m(18:59:49)[0m [96m[INFO]:[0m End Game
+
+[90m(18:59:49)[0m [96m[INFO]:[0m End Application
 

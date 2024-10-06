@@ -10,7 +10,7 @@
  */
 //#include "entityMang.h"
 //class entityMang;
-
+#include <ncurses.h>
 #include <string>
 #include <vector>
 
@@ -21,14 +21,20 @@ class entity {
               
         //void entityRemove(entityMang* manager); //set alive = false and add the entity to remove in the m_toRemove vector in the entityManger
         
-        //here all shared_ptr of all the components
-        std::shared_ptr<CTransform> cTransform;
-
+        //here all shared_ptr of all the components 
+        //std::shared_ptr<CWindow> cWindow;   //window on witch entity will be renered
+        std::shared_ptr<CTransform> cTransform; //position inside the window
+        //std::shared_ptr<CSpriteNc> cSpriteNc;
+        //std::shared_ptr<CCollisionShapeNc> cCollisionShapeNc;
         
+
         ENTITY_TYPE getTag() const;
         std::size_t getId() const;
         bool isAlive() const;
+        bool isToRender() const;
+
         void destroy();
+        void toRender(bool toRender = false);
 
         //template <class T> 
         //void addComponent (T c);    //add componet
@@ -36,7 +42,7 @@ class entity {
         //template <class T>
         //void getComponent ();    //remove component 
         
-    
+            
     private:
         friend class entityMang;
 
@@ -46,8 +52,8 @@ class entity {
         const std::size_t m_id = 0;
         const ENTITY_TYPE m_tag = DEFAULT;
         bool m_alive = true;
+        bool m_isToRender = true;
        
-                
 };
 
 #endif

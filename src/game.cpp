@@ -85,32 +85,56 @@ void game::sMovement() {
     //read the m_player->cInput and then change the component cTransform of the player entity
 }
 
+void game::ncRendering(std::shared_ptr<entity> a) {
+    //...
+    //change case if it is on board or not
+    
+}
 
 void game::sRender() {
     //clear window
-    
-    //draw entities
-    /*
-    for (auto e : m_entityMang.getEntities()){
-        if ( l'entità deve essere renderizzata){
-            disegna l'entitàù
-            m_window.draw(e);
+    clear();
+
+    for (auto e : m_entityMang->getEntities()){
+        if (e->isToRender() && e->isAlive()){ 
+            ncRendering(e);
         }
     }
-    */
 
     //display
 }
+/*
+void game::sNcCollide(std::shared_ptr<entity> a, std::shared_ptr<entity> b) {
+    //a->cCollisionShapeNc->mask_layer ...
+    //string della dimensione della board
+    //per ogni elemento (a, b) controllare che le posizioni non escano dalla board
+    //iterare lungo ogni nave e stamparla nella string controllando che la casella non sia già piena
+}
+*/
 
 void game::sCollision() {
-    //example:
+    //colliison between ship 
     /*
-    for (auto b : m_entities->getEntities(BULLET)) {
-        for (auto e : m_entities->getEntities(ENEMY){
-            //........
+    for (auto e : m_entityMang->getEntities(SHIP)){
+        //collion detection only if it have collision shape component
+        if (e->cCollisionShapeNc != nullptr) {
+            //e->cCollisionShapeNc->mask_layer ...
+            //string della dimensione della board
+            //per ogni elemento (a, b) controllare che le posizioni non escano dalla board
+            //iterare lungo ogni nave e stamparla nella string controllando che la casella non sia già piena
+            //fare il tutto per ogni board nel caso 
+
+            //alternativa non giusta
+            for (auto b : m_entityMang->getEntities(SHIP)) {
+                if (b->cCollisionShapeNc != nullptr) {
+                    //sNcCollide(e, b);
+                }
+            }
         }
     }
+    //collision with board ????
     */
+
 }
 
 

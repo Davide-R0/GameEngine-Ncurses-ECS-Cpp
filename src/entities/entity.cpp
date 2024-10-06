@@ -3,7 +3,7 @@
 //#include "entityMang.h"
 
 entity::entity(const ENTITY_TYPE tag, std::size_t id) : m_id(id), m_tag(tag){
-
+    
 }
 
 ENTITY_TYPE entity::getTag() const{
@@ -18,8 +18,16 @@ bool entity::isAlive() const{
     return m_alive;
 }
 
+bool entity::isToRender() const {
+    return m_isToRender;
+}
+
 void entity::destroy() {
     m_alive = false;
+}
+
+void entity::toRender(bool toRender) {
+    m_isToRender = toRender;
 }
 
 /*
