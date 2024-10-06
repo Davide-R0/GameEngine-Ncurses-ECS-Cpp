@@ -4,6 +4,10 @@
 - ECS: Entity, Component, Systems
 - makefile
 
+Note on log file:
+- it is raccomanded to open the log file with therminal program like `less`, `cat`, etc...
+- in `.bashrc`, or `.zshrc`, or whatever you have add `export CLICOLOR=TRUE` if color are not displayed.
+
 ## Requirements
 - Linux
 

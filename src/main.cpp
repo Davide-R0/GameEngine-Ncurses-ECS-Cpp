@@ -1,30 +1,27 @@
-#include <iostream>
+//#include <iostream>
 #include <ncurses.h>
 
 #include "app.h"
 
+#include "core/logger.h"
+
 //not to include
-#include "entities/constant.h"
+//#include "entities/constant.h"
 //#include "gameEng.h"
-#include "entities/entityMang.h"
+//#include "entities/entityMang.h"
 
 
 int main (int argc, char** argv){
-
-    std::cout<<"It works [main]\n";
+    //init logger
+    //NOTE: initialization of logger before anyting else for all log info
+    init_logger();
 
     app *Application = app::getInstance();
-    
+     
     Application->start();
-    
-    //aggiungerlo nella applicazione
-    entityMang * mng = entityMang::getInstance();
-
-    mng->addEntity(BOARD);
-    
-    mng->update();
-    
+        
     Application->end();
 
+    
     return 0;
 }

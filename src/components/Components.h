@@ -1,6 +1,7 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 
+#include <ncurses.h>
 
 class CTransform {
     public:
@@ -10,6 +11,26 @@ class CTransform {
     private:
         int x = 0;
         int y = 0;
+};
+
+class CWindow {
+    public:
+        CWindow();
+        ~CWindow();
+    
+        //no logic in components 
+        //void refresh(); 
+        //void box();
+        
+        void setXY();
+
+        void getWin() const;
+        void getX() const;
+        void getY() const;
+        
+    private:
+        const WINDOW* win;
+        int x, y;
 };
 
 #endif 

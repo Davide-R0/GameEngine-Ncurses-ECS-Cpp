@@ -18,13 +18,14 @@ class game {
         void end();
 
     private:
-        //entityMang m_entityMang;
+        entityMang* m_entityMang;
         //font
         //text
         //render window
         //all config for the play
         //score
         //current frame
+        std::size_t m_currentFrame = 0;
         //last enemy spown time
         bool m_paused = false;  //if update game logic
         bool m_running = true;  //if game is running

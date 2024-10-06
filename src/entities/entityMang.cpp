@@ -1,10 +1,11 @@
 #include "entityMang.h"
 #include "constant.h"
+#include "../core/logger.h"
 #include "entity.h"
 
-#include <iostream>
+//#include <iostream>
 #include <memory>
-#include <algorithm> //for find
+//#include <algorithm> //for find
 //#include <string>
 
 /**********************************/
@@ -13,17 +14,18 @@ entityMang *entityMang::s_entityMang = nullptr;
 entityMang *entityMang::getInstance(){
     if (s_entityMang == nullptr){
         s_entityMang = new entityMang();
-        std::cout<<"Entity Manager Object created\n";
+        GINFO("Entity Manager Object created");
     }
     return s_entityMang;
 }
 /**********************************/
 
 std::shared_ptr<entity> entityMang::addEntity (const ENTITY_TYPE& tag){
-    auto e = std::make_shared<entity>(tag, m_totalEntities ++);
+    auto e = std::make_shared<entity>(tag, m_totalEntities++);
     m_toAdd.push_back(e);
 
-    std::cout << "Oggetto con tag " << e->getTag() << " e id " << e->getId() << " aggiunto" << std::endl;
+    GDEBUG("Oggetto con tag %d e id %d aggiunto", (int)e->getTag(), (int)e->getId());
+    
     return e;
 }
 
@@ -40,10 +42,16 @@ const entityVec& entityMang::getEntities(const ENTITY_TYPE& tag) const{
 
 //called at the beggining of each game frame
 void entityMang::update () {
+    
+    //GDEBUG("Update call");
+
     for (auto e : m_toAdd) {
         m_entities.push_back(e);
-        m_entityMap[e->getTag()].push_back(e);
+        //TODO: add entities to the map vector 
+        //m_entityMap[e->getTag()].push_back(e);
+        
         //add error message
+        GDEBUG("Entity tag %d and id %d added", (int)e->getTag(), (int)e->getId());
     }
     m_toAdd.clear();
     
@@ -58,15 +66,15 @@ void entityMang::update () {
             //remove from vector
         //}
         //ricontorllare
-        /*auto i = std::find(m_entities.begin(), m_entities.end(), [&e](std::shared_ptr<entity> * i) { return i && (*i == e); });
+        auto i = std::find(m_entities.begin(), m_entities.end(), [&e](std::shared_ptr<entity> * i) { return i && (*i == e); });
 
         if (i != m_entities.end()) {
             m_entities.erase(i);
-        }*/
+        }
         
         //std::cout<< "Oggetto con tag " << e->getTag() << " e id " << e->getId() << " rimosso" << std::endl;
         //m_entities.erase(std::find(m_entities.begin(), m_entities.end(), e));
-        /*
+        
         m_entities.push_back(e);
         m_entityMap[e->getTag()].push_back(e);
         */

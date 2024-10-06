@@ -1,6 +1,8 @@
 #include "app.h"
+#include "core/logger.h"
+#include "game.h"
 
-#include <iostream>
+//#include <iostream>
 #include <ncurses.h>
 
 /**********************************/
@@ -9,39 +11,89 @@ app *app::s_app = nullptr;
 app *app::getInstance(){
     if (s_app == nullptr){
         s_app = new app();
-        std::cout<<"Application Object created\n";
+        GINFO("Application Object created");
     }
     return s_app;
 }
 /**********************************/
 
+//TODO: add check
 void app::start() {
+    GINFO("Start Application");
     initApp();
-    loopApp();
+    initGame();
 }
 
 //TODO: add check
 bool app::initApp() {
+    
+    //logger test
+    /*
+    GFATAL("Fatal logger %f", 5.231);
+    GERROR("Error logger %f", 5.231);
+    GWARN("Warn logger %f", 5.231);
+    GINFO("Info logger %f", 5.231);
+    GDEBUG("Debug logger %f", 5.231);
+    GTRACE("Trace logger %f", 5.231);
+    */
+
+    //(in case) init custom allocator
+
     //init ncurses
     initscr();
-    
+    //for more information see 'man cbreak'
+    //cbreak(); nocbreak(); //no need end character 
+              //^c wil exit the probram with error message
+    raw();  //to make the getch() function an interrupt instead of a break in the program
+            //getch() will not stop the probram until a character is pressed
+    //noecho(); or echo(); //if the character is echoed to getch() (useful if want to not interact on certain window)
+    noecho(); //will not print the character pressed on the screen
+
+    nodelay(stdscr, true); //getch non bloacking call
+
     refresh();
+    
+    //get standard screen dimension
+    getmaxyx(stdscr, m_yScr, m_xScr);
+    GINFO("Start up terminal size (%d,%d)", m_xScr, m_yScr);
+
     return true;
 }
 
-void app::loopApp() {
-    getch();
+//TODO: add check
+bool app::initGame() {
+    //make m_game singleton??
+    m_game = new game();
+    m_game->start();
+
+    return true;
 }
 
-
+//TODO: add check
 void app::end() {
+    
+    endGame();
     endApp();
+    //end logger
+    end_logger();
 }
 
 //TODO: add check
 bool app::endApp() {
-    //deallocate memori/end ncurses
+    GINFO("End Application");
+    //deallocate memory
+    
+    //end ncurses
     endwin();
+    
+    return true;
+}
 
+//TODO: add check
+bool app::endGame() {
+    //end game
+    m_game->end();
+    delete m_game;
+    
     return true;
 }

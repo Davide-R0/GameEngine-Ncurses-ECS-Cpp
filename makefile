@@ -24,46 +24,23 @@ INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 # Outputs the target name
 #	echo $@
 # Outputs all prerequisites
-#	echo $^
+#	echo $(BUILD_DIR)/$(EXEC)
+
+run: $(BUILD_DIR)/$(EXEC)
+	${BUILD_DIR}/${EXEC}
+#if the program exit with an error make will tell something like: "make: *** [makefile:--: run] Error 1"
 
 # The final build step.
 $(BUILD_DIR)/$(EXEC): $(OBJS)
 	$(CPP) $(OBJS) -o $@ $(LDFLAGS)
 
-.PHONY: build
 $(BUILD_DIR)/%.cpp.o: %.cpp
 	mkdir -p $(dir $@)
 	$(CPP) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-.PHONY: clean
 clean:
 	rm -r $(BUILD_DIR)
 
-# Include the .d makefiles. The - at the front suppresses the errors of missing
-# Makefiles. Initially, all the .d files will be missing, and we don't want those
-# errors to show up.
-#-include $(DEPS)
+rebuild: clean $(BUILD_DIR)/$(EXEC)
 
-
-
-
-
-ifeq (0,1)
-	main: main.cpp app.o gameEng.o
-		$(CPP) $(CPPFLAGS) $(LDFLAGS) main.cpp app.o gameEng.o -o $@  
-	#$@= the name of the function
-
-	app.o: app.cpp
-		$(CPP) $(CPPFLAGS) $(LDFLAGS) -c app.cpp 
-
-	gameEng.o: gameEng.cpp
-		$(CPP) $(CPPFLAGS) $(LDFLAGS) -c gameEng.cpp
-
-
-clean: 
-	rm main *.o
-
-rebuild: clean main
-
-endif
 

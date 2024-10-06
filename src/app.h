@@ -1,6 +1,8 @@
 #ifndef APP_H
 #define APP_H
 
+class game;
+
 class app {
     public:
         /**********************************/
@@ -19,12 +21,14 @@ class app {
         static app* s_app;
         /**********************************/
         
+        game* m_game;
+
         bool initApp();
-
-        void loopApp();
-
+        bool initGame();
         bool endApp();
-
+        bool endGame();
+    
+        int m_xScr, m_yScr;
 };
 
 

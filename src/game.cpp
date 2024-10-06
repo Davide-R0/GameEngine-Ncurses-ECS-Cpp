@@ -1,17 +1,38 @@
 #include "game.h"
+#include "core/logger.h"
+#include "entities/entityMang.h"
+#include <ncurses.h>
 
 game::game() {
+    GINFO("Game object created");
     init();
 }
 
 void game::start() {
-    //pouse functionality
+    
+    GINFO("Start Game");
+
+    GINFO("Game loop started");
+    
+    int ch;
 
     //main game loop
     while (m_running) {
-        //m_entities.update()
-       
+        //first thing in main loop
+        m_entityMang->update();
+        
+        ch = getch();
+        if (ch != ERR){
+            printw("%d\n", ch);
+            GDEBUG("Pressed: %d", ch);
+            
+            if (ch == 3) {
+                m_running = false;
+            }
+        }
+        
         /*
+        //pause functonality
         if(!m_paused){
             //...
             //what to execute se il gioco non è in pausa
@@ -20,21 +41,28 @@ void game::start() {
             //sRenderer()
         }
         */
-
         
-        
-        //m_currentframe++;
+        m_currentFrame++;
     }
+
+    GINFO("Game loop ended");
 }
 
 void game::end() {
+    GINFO("End Game");
     
 }
 
 void game::init() {
+    m_entityMang = entityMang::getInstance();
+    
     //...
     //setup window parameters
+
     //spawn initial scene
+    m_entityMang->addEntity(BOARD);
+    m_entityMang->update();
+
 }
 
 //...

@@ -6,8 +6,8 @@
 /*Non è possibile aggiungere in entrambigli header file peciprocamente.
  * E' giusto dichiarare la classe nell'header file e includere l'altro hheader file solo nel .cpp file?
  */
-#include "entity.h"
-//class entity;
+//#include "entity.h"
+class entity;
 
 #include <vector>
 #include <memory> //for shared ptr
@@ -19,7 +19,6 @@ typedef std::vector<entityVec> entityMap; //vector of entities indexed by the en
 
 class entityMang {
     public:
-         
         /**********************************/
         entityMang(const entityMang &other) = delete;
         void operator=(const entityMang&) = delete;
