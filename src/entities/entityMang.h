@@ -14,7 +14,7 @@ class entity;
 
 //change shared pointer with something else
 typedef std::vector<std::shared_ptr<entity>> entityVec;
-typedef std::vector<entityVec> entityMap; //vector of entities indexed by the enum of the tag
+//typedef entityVec entityMap[sizeof(ENTITY_TYPE)]; //vector of entities indexed by the enum of the tag
 
 
 class entityMang {
@@ -25,6 +25,8 @@ class entityMang {
         static entityMang *getInstance();
         /**********************************/
         
+        ~entityMang();
+
         void update();
         std::shared_ptr<entity> addEntity (const ENTITY_TYPE& tag);
         void removeEntity(const ENTITY_TYPE& tag, const std::size_t id);
@@ -32,6 +34,8 @@ class entityMang {
         const entityVec& getEntities() const;
         const entityVec& getEntities(const ENTITY_TYPE& tag) const;
         
+        void function();
+
         void removeDeadEntity(entityVec& vec);
 
     private:
@@ -43,7 +47,7 @@ class entityMang {
         entityVec m_entities;
         entityVec m_toAdd;
         entityVec m_toRemove;
-        entityMap m_entityMap;
+        entityVec m_entityMap[sizeof(ENTITY_TYPE)];
 
         std::size_t m_totalEntities = 0;
 

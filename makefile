@@ -1,9 +1,6 @@
 #usefull make flags:
 #- `-k` continue to compile even if it encounters error
 
-#BUILD_DIR := ./build
-#SRC_DIRS := ./src
-
 CPP := g++
 CPPFLAGS := -Wall -g 
 LDFLAGS := -lncurses -ltinfo 

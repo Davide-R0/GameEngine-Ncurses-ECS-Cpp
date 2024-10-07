@@ -1,8 +1,20 @@
 #include "Components.h"
 #include <ncurses.h>
 
-CTransform::CTransform(int X, int Y): y(Y), x(X) {
+#include "../core/logger.h"
 
+Components::Components() {
+    //GDEBUG("Components base class constructor called");
+}
+Components::~Components() {
+    //GDEBUG("Components base class destructor called");
+}
+
+CTransform::CTransform(int X, int Y): y(Y), x(X) {
+    GDEBUG("CTransform constructor called");
+}
+CTransform::~CTransform() {
+    GDEBUG("CTransform destructor called");
 }
 
 /*

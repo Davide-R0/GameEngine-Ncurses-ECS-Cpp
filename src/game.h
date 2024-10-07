@@ -12,6 +12,7 @@ class game {
     public:
         //make a singleton????
         game();
+        ~game();
 
         void start();
 

@@ -1,11 +1,19 @@
 #include "game.h"
 #include "core/logger.h"
+#include "entities/constant.h"
 #include "entities/entityMang.h"
 #include <ncurses.h>
+//#include "components/Components.h"
+//#include "entities/entity.h"
 
 game::game() {
-    GINFO("Game object created");
+    GTRACE("Game object constructor called");
     init();
+}
+
+game::~game() {
+    GTRACE("Game object destructor called");
+    delete m_entityMang;
 }
 
 void game::start() {
@@ -53,6 +61,8 @@ void game::end() {
     
 }
 
+#include "components/Components.h"
+
 void game::init() {
     m_entityMang = entityMang::getInstance();
     
@@ -62,7 +72,21 @@ void game::init() {
     //spawn initial scene
     m_entityMang->addEntity(BOARD);
     m_entityMang->update();
+    
+    //the allocation and deallocation should let to entity class do becose otherwise the deletion of the component let out of scope the component in the class entity
+    //CTransform* ctransform = new CTransform(10,10);
+    //m_entityMang->getEntities(BOARD)[0]->addComponent<CTransform>(ctransform);
+    //delete ctransform;
 
+    //BUT if the component have a constructor with logic is necessary to call the constructor each time the new component is added, like this: (there is no other way to do this)
+    m_entityMang->getEntities(BOARD)[0]->addComponent<CTransform>(new CTransform(10,10));
+    m_entityMang->getEntities(BOARD)[0]->addComponent<CTransform>(new CTransform(10,10));
+    //and to access che component:    
+    GDEBUG("Component name %s", m_entityMang->getEntities(BOARD)[0]->getComponent<CTransform>()->name);
+    
+    //so if all the constructor of all components are empty (this mean that there must not be any private variable(?) or const value) you can let entity class create and destroy all components 
+    
+    //m_entityMang->getEntities(BOARD)[0]->~entity();
 }
 
 //...

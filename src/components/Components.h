@@ -7,15 +7,25 @@
 #include <filesystem>   //non includerlo qui???
 #include <vector>
 //#include <string>
+//#include "../core/logger.h"
 
-class CTransform {
+class Components {
+    public:
+       Components();
+       virtual ~Components();
+};
+
+class CTransform : public virtual Components{
     public:
         CTransform(int X, int Y);
         CTransform();
         ~CTransform();
 
-        int x = 0;
         int y = 0;
+        int x = 0;
+        
+        const char name[11] = "CTransform";
+
     private:
 
 };

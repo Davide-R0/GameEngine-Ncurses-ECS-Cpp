@@ -37,7 +37,7 @@ void end_logger() {
 }
 
 void log_output(log_level level, const char* message, ...) {
-    const char* level_name[6] = {"\033[31m[FATAL]:\033[0m ", "\033[91m[ERROR]:\033[0m ", "\033[33m[WARN]:\033[0m ", "\033[96m[INFO]:\033[0m ", "\033[95m[DEBUG]:\033[0m ", "\033[92m[TRACE]:\033[0m "};
+    const char* level_name[6] = {"\033[31m[FATAL]:\033[0m ", "\033[91m[ERROR]:\033[0m ", "\033[33m[WARN]:\033[0m ", "\033[94m[INFO]:\033[0m ", "\033[95m[DEBUG]:\033[0m ", "\033[92m[TRACE]:\033[0m "};
     
     //add no color log output 
     //const char* level_name_base[6] = {"[FATAL]: ", "[ERROR]: ", "[WARN]: ", "[INFO]: ", "[DEBUG]: ", "[TRACE]: "};

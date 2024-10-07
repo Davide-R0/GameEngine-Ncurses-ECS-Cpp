@@ -42,3 +42,9 @@ The main flags are:
 3. Physics
 4. AI
 5. Renderer
+
+## Future optimization
+1. multi scene managment
+2. game loop
+3. add assertion
+4. add custom memory allocator

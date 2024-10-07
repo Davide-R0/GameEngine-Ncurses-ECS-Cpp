@@ -10,7 +10,9 @@ class app {
         void operator=(const app&) = delete;
         static app *getInstance();
         /**********************************/
-       
+        
+        ~app();
+
         void start();
 
         void end();

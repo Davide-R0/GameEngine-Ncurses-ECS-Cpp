@@ -14,29 +14,37 @@ entityMang *entityMang::s_entityMang = nullptr;
 entityMang *entityMang::getInstance(){
     if (s_entityMang == nullptr){
         s_entityMang = new entityMang();
-        GINFO("Entity Manager Object created");
+        GTRACE("Entity Manager constructor called");
     }
     return s_entityMang;
 }
 /**********************************/
 
+entityMang::~entityMang() {
+    GTRACE("Entity Manager destructor called");
+}
+
 std::shared_ptr<entity> entityMang::addEntity (const ENTITY_TYPE& tag){
     auto e = std::make_shared<entity>(tag, m_totalEntities++);
     m_toAdd.push_back(e);
 
-    GDEBUG("Oggetto con tag %d e id %d aggiunto", (int)e->getTag(), (int)e->getId());
+    GDEBUG("Entity con tag %d e id %d aggiunto alla lista da aggiungere", (int)e->getTag(), (int)e->getId());
     
     return e;
 }
 
 void entityMang::removeEntity(const ENTITY_TYPE& tag, const std::size_t id){
+    //WARN: sbagliato, bisogna iterare in base al tag e id per trovare l'effettiva entità da rimuovere
     m_toRemove.push_back(m_entities[id]); //ricontrollare
 }
 
 const entityVec& entityMang::getEntities() const{
+    //GDEBUG("getEntities called");
     return m_entities;
 }
+
 const entityVec& entityMang::getEntities(const ENTITY_TYPE& tag) const{
+    //GDEBUG("getEntities called with tag");
     return m_entityMap[tag];
 }
 
@@ -47,11 +55,10 @@ void entityMang::update () {
 
     for (auto e : m_toAdd) {
         m_entities.push_back(e);
-        //TODO: add entities to the map vector 
-        //m_entityMap[e->getTag()].push_back(e);
+        m_entityMap[e->getTag()].push_back(e);
         
         //add error message
-        GDEBUG("Entity tag %d and id %d added", (int)e->getTag(), (int)e->getId());
+        GDEBUG("Entity con tag %d e id %d aggiunto!", (int)e->getTag(), (int)e->getId());
     }
     m_toAdd.clear();
     

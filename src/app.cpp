@@ -11,11 +11,16 @@ app *app::s_app = nullptr;
 app *app::getInstance(){
     if (s_app == nullptr){
         s_app = new app();
-        GINFO("Application Object created");
+        GTRACE("Application Constructor called");
     }
     return s_app;
 }
 /**********************************/
+
+app::~app(){
+    GTRACE("Application destructor called");
+    delete m_game;
+}
 
 //TODO: add check
 void app::start() {
@@ -93,7 +98,6 @@ bool app::endApp() {
 bool app::endGame() {
     //end game
     m_game->end();
-    delete m_game;
     
     return true;
 }
