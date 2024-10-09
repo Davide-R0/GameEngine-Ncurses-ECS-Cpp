@@ -16,6 +16,10 @@ class entity;
 typedef std::vector<std::shared_ptr<entity>> entityVec;
 //typedef entityVec entityMap[sizeof(ENTITY_TYPE)]; //vector of entities indexed by the enum of the tag
 
+/*
+ *  ERROR: entity manager se è un singleton non può essere istanziato per più scene!!
+ *  TODO: cambiarlo in classe normale
+ */
 
 class entityMang {
     public:
@@ -47,7 +51,7 @@ class entityMang {
         entityVec m_entities;
         entityVec m_toAdd;
         entityVec m_toRemove;
-        entityVec m_entityMap[sizeof(ENTITY_TYPE)];
+        entityVec m_entityMap[sizeof(ENTITY_TYPE)] = {};
 
         std::size_t m_totalEntities = 0;
 

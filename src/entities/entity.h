@@ -34,8 +34,8 @@ class entity {
         
         
         //possible to modify entoty tag in this way?
-        ENTITY_TYPE getTag() const;
-        std::size_t getId() const;
+        const ENTITY_TYPE getTag() const;
+        const std::size_t getId() const;
         
         bool isAlive() const;
         bool isToRender() const;
@@ -77,7 +77,8 @@ class entity {
 //Template function declaration
 template<typename T> 
 void entity::addComponent(T* c) {
-    GDEBUG("Adding component %s to entity with tag %d and id %d", c->name, m_tag, m_id);
+    
+    //GDEBUG("Adding component %s to entity with tag %d and id %d", c->name, m_tag, m_id);
 
     m_components.emplace_back(c);
 }

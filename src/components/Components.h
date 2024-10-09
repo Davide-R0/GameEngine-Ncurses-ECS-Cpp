@@ -30,6 +30,17 @@ class CTransform : public virtual Components{
 
 };
 
+class CInput : public virtual Components {
+    public:
+        CInput();
+        ~CInput();
+
+        bool up = false;
+        bool down = false;
+        bool right = false;
+        bool left = false;
+};
+
 //WARN: aggiustare!!
 //forse meglio non trattare in questa componente la creazione della window, ma nel renderer. Così sarà possibile creare finestre virtuali che non verranno renderizzate
 /*class CWindow {

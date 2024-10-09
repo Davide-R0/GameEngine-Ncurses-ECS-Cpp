@@ -1,0 +1,4 @@
+#ifndef ASSETSCONSTANT_H
+#define ASSETSCONSTANT_H
+
+#endif

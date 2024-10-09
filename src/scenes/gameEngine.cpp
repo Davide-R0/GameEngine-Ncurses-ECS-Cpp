@@ -1,47 +1,76 @@
-#include "game.h"
-#include "core/logger.h"
-#include "entities/constant.h"
-#include "entities/entityMang.h"
+#include "gameEngine.h"
+#include "../core/logger.h"
+//#include "../entities/constant.h"
+//#include "../entities/entityMang.h"
 #include <ncurses.h>
-//#include "components/Components.h"
-//#include "entities/entity.h"
+//#include "../entities/entity.h"
+#include "sceneBase.h"
+#include "scPlay.h"
+#include "sceneConstants.h"
+#include "../actions/action.h"
 
-game::game() {
+gameEngine::gameEngine() {
     GTRACE("Game object constructor called");
     init();
 }
 
-game::~game() {
+gameEngine::~gameEngine() {
     GTRACE("Game object destructor called");
-    delete m_entityMang;
+    //TODO: liberare la memoria delle scene
+    //for(int i = sizeof(m_scenes); i>=0; i--) {
+    //    delete m_scenes[i];
+    //}
+    delete m_scenes[PLAY];
 }
 
-void game::start() {
-    
-    GINFO("Start Game");
+//#include "../components/Components.h"
 
+void gameEngine::init() {
+    //new//////////
+    //start with a scene
+    GTRACE("Game engine init");
+
+    m_currentScene = PLAY;
+    m_scenes[m_currentScene] = new scPlay();
+
+    ///////////////////
+}
+
+#include "../actions/actionConstants.h"
+
+void gameEngine::run() {
+    //main loop
+    
     GINFO("Game loop started");
-    
-    int ch;
 
+    int ch;
+    ACTION_NAME actionName;
     //main game loop
     while (m_running) {
         //first thing in main loop
-        m_entityMang->update();
+        m_scenes[m_currentScene]->update();
         
         ch = getch();
+
         if (ch != ERR){
             printw("%d\n", ch);
-            GDEBUG("Pressed: %d", ch);
+            //GDEBUG("Pressed: %d", ch);
             
-            if (ch == 3) {
+            actionName = currentScene()->getActionName(ch);
+            
+            if (actionName != 0) {   //0 means no action (see the enum ACTION_NAME)
+                const ACTION_PHASE actionType = PRESS;
+                currentScene()->sDoAction(new action(actionName, actionType));
+            }
+
+            if (ch == 3) {  //termination process code ^C 
                 m_running = false;
             }
         }
         
         /*
         //pause functonality
-        if(!m_paused){
+        if(!m_scenes[m_currentScene].isPaused()){
             //...
             //what to execute se il gioco non è in pausa
             ////sCollisison()
@@ -49,73 +78,71 @@ void game::start() {
             //sRenderer()
         }
         */
-        
-        m_currentFrame++;
+        //m_currentFrame++;
     }
 
     GINFO("Game loop ended");
+
+
 }
 
-void game::end() {
+void gameEngine::changeScene(SCENE_TAG tag, sceneBase& scene) {
+    //TODO: aggiustare
+    m_currentScene = tag;
+    //if(se la scena è nuova aggoungerla al vettore){
+    //m_scenes[m_currentScene].push_back(&scene);
+    //}
+}
+
+sceneBase* gameEngine::currentScene() {
+    return m_scenes[m_currentScene];
+}
+
+/*
+void gameEngine::start() {
+    GINFO("Start Game");
+    mainLoop();
+}
+*/
+/*
+void gameEngine::mainLoop() {
+    }*/
+/*
+void gameEngine::end() {
     GINFO("End Game");
     
 }
+*/
 
-#include "components/Components.h"
 
-void game::init() {
-    m_entityMang = entityMang::getInstance();
-    
-    //...
-    //setup window parameters
-
-    //spawn initial scene
-    m_entityMang->addEntity(BOARD);
-    m_entityMang->update();
-    
-    //the allocation and deallocation should let to entity class do becose otherwise the deletion of the component let out of scope the component in the class entity
-    //CTransform* ctransform = new CTransform(10,10);
-    //m_entityMang->getEntities(BOARD)[0]->addComponent<CTransform>(ctransform);
-    //delete ctransform;
-
-    //BUT if the component have a constructor with logic is necessary to call the constructor each time the new component is added, like this: (there is no other way to do this)
-    m_entityMang->getEntities(BOARD)[0]->addComponent<CTransform>(new CTransform(10,10));
-    m_entityMang->getEntities(BOARD)[0]->addComponent<CTransform>(new CTransform(10,10));
-    //and to access che component:    
-    GDEBUG("Component name %s", m_entityMang->getEntities(BOARD)[0]->getComponent<CTransform>()->name);
-    
-    //so if all the constructor of all components are empty (this mean that there must not be any private variable(?) or const value) you can let entity class create and destroy all components 
-    
-    //m_entityMang->getEntities(BOARD)[0]->~entity();
-}
 
 //...
 //
-
-void game::sUserInput() {
+/*
+void gameEngine::sUserInput() {
     //only reading user input here, no implementation of input logic!!
     
     //add event object
-    /* esempio:
+    *//* esempio:
      se è premuto il pulsante "w" 
      then 
         m_player->cInput->up = true; //si modifica la variabile nel sistema di input 
     */
     
     //la logica dell'input è eseguita dalla funzione sMovement()
-}
-
-void game::sMovement() {
+/*}
+*//*
+void gameEngine::sMovement() {
     //read the m_player->cInput and then change the component cTransform of the player entity
 }
-
-void game::ncRendering(std::shared_ptr<entity> a) {
+*//*
+void gameEngine::ncRendering(std::shared_ptr<entity> a) {
     //...
     //change case if it is on board or not
     
 }
-
-void game::sRender() {
+*//*
+void gameEngine::sRender() {
     //clear window
     clear();
 
@@ -127,7 +154,7 @@ void game::sRender() {
 
     //display
 }
-/*
+*//*
 void game::sNcCollide(std::shared_ptr<entity> a, std::shared_ptr<entity> b) {
     //a->cCollisionShapeNc->mask_layer ...
     //string della dimensione della board
@@ -135,10 +162,10 @@ void game::sNcCollide(std::shared_ptr<entity> a, std::shared_ptr<entity> b) {
     //iterare lungo ogni nave e stamparla nella string controllando che la casella non sia già piena
 }
 */
-
-void game::sCollision() {
+/*
+void gameEngine::sCollision() {
     //colliison between ship 
-    /*
+    *//*
     for (auto e : m_entityMang->getEntities(SHIP)){
         //collion detection only if it have collision shape component
         if (e->cCollisionShapeNc != nullptr) {
@@ -158,7 +185,7 @@ void game::sCollision() {
     }
     //collision with board ????
     */
-
-}
+/*
+}*/
 
 

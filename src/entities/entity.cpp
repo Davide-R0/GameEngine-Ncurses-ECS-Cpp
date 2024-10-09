@@ -21,11 +21,11 @@ entity::~entity() {
 }
 
 
-ENTITY_TYPE entity::getTag() const{
+const ENTITY_TYPE entity::getTag() const{
     return m_tag;
 }
 
-std::size_t entity::getId() const{
+const std::size_t entity::getId() const{
     return m_id;
 }
 

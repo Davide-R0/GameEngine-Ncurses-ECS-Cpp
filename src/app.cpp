@@ -1,6 +1,6 @@
 #include "app.h"
 #include "core/logger.h"
-#include "game.h"
+#include "scenes/gameEngine.h"
 
 //#include <iostream>
 #include <ncurses.h>
@@ -68,8 +68,8 @@ bool app::initApp() {
 //TODO: add check
 bool app::initGame() {
     //make m_game singleton??
-    m_game = new game();
-    m_game->start();
+    m_game = new gameEngine();
+    m_game->run();
 
     return true;
 }
@@ -97,7 +97,7 @@ bool app::endApp() {
 //TODO: add check
 bool app::endGame() {
     //end game
-    m_game->end();
+    //m_game->end();
     
     return true;
 }

@@ -1,7 +1,7 @@
 #ifndef APP_H
 #define APP_H
 
-class game;
+class gameEngine;
 
 class app {
     public:
@@ -23,7 +23,7 @@ class app {
         static app* s_app;
         /**********************************/
         
-        game* m_game;
+        gameEngine* m_game;
 
         bool initApp();
         bool initGame();

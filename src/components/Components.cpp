@@ -17,6 +17,14 @@ CTransform::~CTransform() {
     GDEBUG("CTransform destructor called");
 }
 
+CInput::CInput() {
+    GDEBUG("CInput constructor called");
+}
+
+CInput::~CInput() {
+    GDEBUG("CInput destructor called");
+}
+
 /*
 CWindow::CWindow(int line_X, int line_Y, int X, int Y, WINDOW* parent_win) : y(Y), x(X), line_y(line_Y), line_x(line_X) {
     //NOTE: add error if parent_win is null ptr
