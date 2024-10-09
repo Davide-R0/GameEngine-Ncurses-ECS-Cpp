@@ -19,7 +19,8 @@ scPlay::~scPlay() {
     //TODO: free memory
     delete m_entityMang;
     delete m_player;
-    delete m_game;
+    
+    //do not delete m_game
 
 }
 

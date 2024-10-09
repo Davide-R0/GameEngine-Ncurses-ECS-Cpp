@@ -43,7 +43,7 @@ class sceneBase {
         //map from the name given of ACTION_NAME to the int of ncurses (ncurses criptation of key name)
         //TODO: change this in a more dinamic way
         //      conviene un vettore statico rispetto ad una mappa std::map?? cosa è più veloce nella ricerca
-        int m_actionMap[NUMBER_ACTION_NAME_DO_NOT_USE];     //m_actionMap[action name] = action key of ncurses
+        int m_actionMap[NUMBER_ACTION_NAME_DO_NOT_USE] = {};     //m_actionMap[action name] = action key of ncurses
                                 //NOTE: in this case ncurses have 93 possible key pressing
 
 };

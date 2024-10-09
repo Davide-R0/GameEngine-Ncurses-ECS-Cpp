@@ -13,6 +13,7 @@ sceneBase::sceneBase() {
 
 sceneBase::~sceneBase() {
     GTRACE("Scene base class destructor called");
+    //do not delete m_game
 }
 
 void sceneBase::registerAction(int ch, ACTION_NAME name) {

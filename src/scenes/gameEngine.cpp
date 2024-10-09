@@ -26,6 +26,7 @@ gameEngine::~gameEngine() {
         delete m_scenes[i];
         m_scenes[i] = nullptr;
     }
+    //delete m_scenes[1];
 }
 
 
