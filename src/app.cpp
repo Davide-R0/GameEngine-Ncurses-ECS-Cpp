@@ -67,8 +67,8 @@ bool app::initApp() {
 
 //TODO: add check
 bool app::initGame() {
-    //make m_game singleton??
-    m_game = new gameEngine();
+
+    m_game = gameEngine::getInstance();
     m_game->run();
 
     return true;
@@ -76,28 +76,22 @@ bool app::initGame() {
 
 //TODO: add check
 void app::end() {
-    
-    endGame();
-    endApp();
-    //end logger
-    end_logger();
-}
-
-//TODO: add check
-bool app::endApp() {
     GINFO("End Application");
     //deallocate memory
     
     //end ncurses
     endwin();
-    
-    return true;
+    endGame();
+
+    //end logger
+    end_logger();
 }
 
 //TODO: add check
 bool app::endGame() {
     //end game
     //m_game->end();
+    delete m_game;
     
     return true;
 }

@@ -14,7 +14,6 @@ class app {
         ~app();
 
         void start();
-
         void end();
 
     private:
@@ -23,13 +22,11 @@ class app {
         static app* s_app;
         /**********************************/
         
-        gameEngine* m_game;
-
         bool initApp();
         bool initGame();
-        bool endApp();
         bool endGame();
-    
+        
+        gameEngine* m_game;
         int m_xScr, m_yScr;
 };
 

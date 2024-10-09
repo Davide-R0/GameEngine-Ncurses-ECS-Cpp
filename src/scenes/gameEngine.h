@@ -1,26 +1,21 @@
 #ifndef GAMEENGINE_H 
 #define GAMEENGINE_H 
 
-//#include "entities/entityMang.h"
-//#include "entities/entity.h"
 #include "sceneConstants.h"
-//class entityMang;
-//class entity;
 class sceneBase;
 //class assets;
 
-#include <memory>
-#include <vector>
-
 class gameEngine {
-    
     public:
-        //make a singleton????
+        /**********************************/
+        gameEngine(const gameEngine& other) = delete;
+        void operator=(const gameEngine&) = delete;
+        static gameEngine* getInstance();
+        /**********************************/
         
         //new /////////////////
-        gameEngine();
         ~gameEngine();
-        void run(); //main loop 
+        void run();     //main loop 
         void update();
         void quit();
         void changeScene(SCENE_TAG tag, sceneBase& scene);
@@ -30,19 +25,23 @@ class gameEngine {
         ////////////////////////
 
     private:
-        
+        /**********************************/
+        gameEngine() {}
+        static gameEngine* s_gameEngine;
+        /**********************************/
+
+
         //new////////////
-        //std::vector<sceneBase*> m_scenes[sizeof(SCENE_TAG)];
-        sceneBase* m_scenes[sizeof(SCENE_TAG)] = {};
+        sceneBase* m_scenes[NUMBER_SCENE_TAG_DO_NOT_USE] = {};
         //window identifier
-        //assets m_assets;
         SCENE_TAG m_currentScene;
         bool m_running = true;
         void init();
         sceneBase* currentScene();
         ////////////
         
-
+        //per le classi scene derivate:
+        //assets m_assets;
         //font
         //text
         //render window

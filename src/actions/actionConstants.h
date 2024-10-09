@@ -7,7 +7,8 @@ enum ACTION_NAME {
     DOWN,
     RIGHT,
     LEFT,
-    ENTER
+    ENTER,
+    NUMBER_ACTION_NAME_DO_NOT_USE
 };
 
 enum ACTION_PHASE {

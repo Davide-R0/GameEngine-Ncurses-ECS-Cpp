@@ -12,21 +12,21 @@ class entity;
 #include <vector>
 #include <memory> //for shared ptr
 
-//change shared pointer with something else
+//TODO: change shared pointer with something else
 typedef std::vector<std::shared_ptr<entity>> entityVec;
 //typedef entityVec entityMap[sizeof(ENTITY_TYPE)]; //vector of entities indexed by the enum of the tag
 
 /*
  *  ERROR: entity manager se è un singleton non può essere istanziato per più scene!!
- *  TODO: cambiarlo in classe normale
  */
 
 class entityMang {
     public:
+        entityMang();
         /**********************************/
-        entityMang(const entityMang &other) = delete;
+        /*entityMang(const entityMang &other) = delete;
         void operator=(const entityMang&) = delete;
-        static entityMang *getInstance();
+        static entityMang *getInstance();*/
         /**********************************/
         
         ~entityMang();
@@ -38,14 +38,12 @@ class entityMang {
         const entityVec& getEntities() const;
         const entityVec& getEntities(const ENTITY_TYPE& tag) const;
         
-        void function();
-
         void removeDeadEntity(entityVec& vec);
 
     private:
         /**********************************/
-        entityMang() {}
-        static entityMang* s_entityMang;
+        /*entityMang() {}
+        static entityMang* s_entityMang;*/
         /**********************************/
         
         entityVec m_entities;

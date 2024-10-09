@@ -6,6 +6,8 @@
 #include "../entities/entityMang.h"
 #include "../components/Components.h"
 #include "../actions/action.h"
+#include "../actions/actionConstants.h"
+//#include "gameEngine.h"
 
 scPlay::scPlay() {
     GTRACE("Scene play class constructor called");
@@ -17,6 +19,7 @@ scPlay::~scPlay() {
     //TODO: free memory
     delete m_entityMang;
     delete m_player;
+    delete m_game;
 
 }
 
@@ -30,13 +33,14 @@ void scPlay::update() {
     m_currentFrame++;
 }
 
-#include "../actions/actionConstants.h"
-#include <ncurses.h>
+//#include <ncurses.h>
 
 void scPlay::init() {
-    //TODO: initialize the action map
+    ///////Initialization action map
+
     //dichiarare questa variabile oppure ricordarsi l'indice dell'enum...
     //i KEY_.. sono i valori di default di ncurses per i tasti 
+    
     ACTION_NAME name;
     name = UP;
     registerAction((int)'w', name); //119 for the 'w? character
@@ -49,13 +53,11 @@ void scPlay::init() {
     name = ENTER;
     registerAction(10, name);
 
-    //general initialization
-    m_entityMang = entityMang::getInstance();
+    ////////general initialization
+    //m_game = gameEngine::getInstance();
+    m_entityMang = new entityMang();
     
-    //...
     //setup window parameters
-    
-    
 
     //spawn initial scene
     m_entityMang->addEntity(BOARD);
@@ -86,7 +88,7 @@ void scPlay::sDoAction(const action* act) {
     //      2. metterci la logica delle azioni nella classe action con classi derivate e base ecc...
 
     //if (act->getPhase() == 0) {    //0 for press in the enum
-        if (act->getName() == 1) {   // 5 è enter
+        if (act->getName() == 1) {   
             printw("w pressed\n");
         } else if (act->getName() == 2) {   
             printw("s pressed\n");
@@ -96,8 +98,7 @@ void scPlay::sDoAction(const action* act) {
             printw("a pressed\n");
         } else if (act->getName() == 5) {   
             printw("Enter pressed\n");
-        } 
- 
+        }
     //}
 
 }
