@@ -1,4 +1,10 @@
 #ifndef ASSETSCONSTANT_H
 #define ASSETSCONSTANT_H
 
+enum TEXTURE_NAME {
+    NONE,
+    BASE,
+    NUMBER_TEXTURE_NAME_DO_NOT_USE
+};
+
 #endif

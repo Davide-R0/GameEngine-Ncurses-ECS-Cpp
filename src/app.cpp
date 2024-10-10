@@ -19,7 +19,7 @@ app *app::getInstance(){
 
 app::~app(){
     GTRACE("Application destructor called");
-    
+    delete m_game;
 }
 
 //TODO: add check
@@ -91,6 +91,6 @@ void app::end() {
 bool app::endGame() {
     //end game
     //m_game->end();
-    delete m_game;
+    
     return true;
 }

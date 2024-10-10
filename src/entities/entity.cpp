@@ -1,6 +1,5 @@
 #include "entity.h"
 #include "constant.h"
-//#include "entityMang.h"
 #include "../components/Components.h" 
 #include "../core/logger.h"
 #include <vector>
@@ -11,13 +10,13 @@ entity::entity(const ENTITY_TYPE tag, std::size_t id) : m_id(id), m_tag(tag){
 
 entity::~entity() {
     GTRACE("Entity destructor called for tag %d and id %d", m_tag, m_id);
-    //vector of components should be deallocated as stack declared
-    //not easy with raw pointers
-    //WARN: controllare se funziona bene
-    std::vector<Components*>::iterator i;
-    for (i = m_components.begin(); i != m_components.end(); i++) {
-        delete *i;
+    
+    //WARN: check the validity of this cleaning
+    for (std::vector<Components*>::iterator it = m_components.begin(); it != m_components.end(); ++it) {
+        delete *it;
+        *it = nullptr;  //this should be done by the .clear() ?
     }
+    m_components.clear();
 }
 
 
@@ -45,16 +44,3 @@ void entity::toRender(bool toRender) {
     m_isToRender = toRender;
 }
 
-/*
-   std::vector<Components*> getComponents() {
-   return m_components;
-   }*/
-
-/*
-   void entity::entityRemove(entityMang* manager) {
-   m_alive = false;
-//aggiungere controlli?
-manager->removeEntity(m_tag, m_id);
-//controllare se funziona
-}
-*/

@@ -3,7 +3,7 @@
 
 #include "sceneConstants.h"
 class sceneBase;
-//class assets;
+#include "../assets/assets.h"
 
 class gameEngine {
     public:
@@ -19,9 +19,12 @@ class gameEngine {
         void update();
         void quit();
         void changeScene(SCENE_TAG tag, sceneBase& scene);
-        //assets& getAssets();
         //window& getWindow();
         void sUserInput();
+
+        //NOTE: in this case assets are loaded one (because light) and not per each scene
+        //otherwise this should have been in the sceneBase class
+        //assets& getAssets();
         ////////////////////////
 
     private:
@@ -37,47 +40,12 @@ class gameEngine {
         SCENE_TAG m_currentScene;
         bool m_running = true;
         void init();
-        sceneBase* currentScene();
-        ////////////
-        
-        //per le classi scene derivate:
+        sceneBase* currentScene() const;
+
+        //NOTE: in this case assets are loaded one (because light) and not per each scene
+        //otherwise this should have been in the sceneBase class
         //assets m_assets;
-        //font
-        //text
-        //render window
-        //all config for the play
-        //score
-        //current frame
-        /*
-        std::size_t m_currentFrame = 0;
-        //last enemy spown time
-        bool m_paused = false;  //if update game logic
-        //bool m_running = true;  //if game is running
-
-        //void init();
-        void setPouse(bool pouse);
-        
-        void mainLoop();
-
-        //systems managing
-        void sMovement();
-        void sUserInput();
-        void sCollision();
-        //...
-
-        //ncurses rendering
-        void ncRendering(std::shared_ptr<entity> a);
-
-        //system to check collision on a board
-        void sNcCollide(std::shared_ptr<entity> a, std::shared_ptr<entity> b);
-        
-        //spowning systems
-        void sSpownPlayer();
-        void sSpownEnemy();
-        //...
-
-        void sRender();
-        */
+        ////////////
 };
 
 

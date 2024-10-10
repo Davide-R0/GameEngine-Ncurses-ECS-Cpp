@@ -26,7 +26,6 @@ gameEngine::~gameEngine() {
         delete m_scenes[i];
         m_scenes[i] = nullptr;
     }
-    //delete m_scenes[1];
 }
 
 
@@ -47,19 +46,19 @@ void gameEngine::run() {
 
     //main game loop
     while (m_running) {
-        //first thing in main loop
+        //first in main loop
         m_scenes[m_currentScene]->update();
 
         ch = getch();
 
         if (ch != ERR){
-            printw("%d\n", ch);
+            //printw("%d\n", ch);
             //GDEBUG("Pressed: %d", ch);
             
             actionName = currentScene()->getActionName(ch);
-            printw("action name %d\n", actionName);
+            
             if (actionName != 0) {   //0 means no action (see the enum ACTION_NAME)
-                const ACTION_PHASE actionType = PRESS;
+                const ACTION_PHASE actionType = PRESS;  //ncurses do not distinguish press/release
                 currentScene()->sDoAction(new action(actionName, actionType));
             }
 
@@ -84,62 +83,23 @@ void gameEngine::run() {
 }
 
 void gameEngine::changeScene(SCENE_TAG tag, sceneBase& scene) {
-    //TODO: controllare che non si stiano copiando dati inutilmente (specialmente che non si stia copiando l'intera "scene"
+    //TODO: controllare che non si stiano copiando dati inutilmente (specialmente che non si stia copiando l'intera "scene")
     //TODO: aggiungere controlli
     m_currentScene = tag;
     m_scenes[tag] = &scene;
 }
 
-sceneBase* gameEngine::currentScene() {
+sceneBase* gameEngine::currentScene() const {
     return m_scenes[m_currentScene];
 }
 
-
+//NOTE: in this case assets are loaded one (because light) and not per each scene
+//otherwise this should have been in the sceneBase class
 /*
-void gameEngine::sRender() {
-    //clear window
-    clear();
-
-    for (auto e : m_entityMang->getEntities()){
-        if (e->isToRender() && e->isAlive()){ 
-            ncRendering(e);
-        }
-    }
-
-    //display
-}
-*//*
-void game::sNcCollide(std::shared_ptr<entity> a, std::shared_ptr<entity> b) {
-    //a->cCollisionShapeNc->mask_layer ...
-    //string della dimensione della board
-    //per ogni elemento (a, b) controllare che le posizioni non escano dalla board
-    //iterare lungo ogni nave e stamparla nella string controllando che la casella non sia già piena
-}
-*/
-/*
-void gameEngine::sCollision() {
-    //colliison between ship 
-    *//*
-    for (auto e : m_entityMang->getEntities(SHIP)){
-        //collion detection only if it have collision shape component
-        if (e->cCollisionShapeNc != nullptr) {
-            //e->cCollisionShapeNc->mask_layer ...
-            //string della dimensione della board
-            //per ogni elemento (a, b) controllare che le posizioni non escano dalla board
-            //iterare lungo ogni nave e stamparla nella string controllando che la casella non sia già piena
-            //fare il tutto per ogni board nel caso 
-
-            //alternativa non giusta
-            for (auto b : m_entityMang->getEntities(SHIP)) {
-                if (b->cCollisionShapeNc != nullptr) {
-                    //sNcCollide(e, b);
-                }
-            }
-        }
-    }
-    //collision with board ????
-    */
-/*
+assets& gameEngine::getAssets() {
+    return m_assets;
 }*/
+
+
 
 

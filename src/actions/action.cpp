@@ -1,10 +1,8 @@
 #include "action.h"
 #include "../core/logger.h"
 
-
-
 action::action(const ACTION_NAME& name, const ACTION_PHASE& phase) {
-    GTRACE("Action constructor called");
+    GTRACE("Action constructor called: name %d, phase %d", name, phase);
     m_phase = phase;
     m_name = name;
 }

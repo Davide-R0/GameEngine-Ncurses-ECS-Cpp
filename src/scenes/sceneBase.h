@@ -13,6 +13,8 @@ class entityMang;
 class assets;
 class action;
 
+#include <ncurses.h>
+
 //abstract class 
 class sceneBase {
     public:
@@ -25,17 +27,24 @@ class sceneBase {
 
         void simulate(int n);   //call derived class update() function a number n of times
         void registerAction(int ch, ACTION_NAME name); //ch the character number of ncurses 
-        ACTION_NAME getActionName(int ch);
+        ACTION_NAME getActionName(int ch) const;
+        
+        //assets are modifieble during the game play???
+        //if not declare constant and add initialization of assets in the init function of derived classes
+        assets* getAssets(); //modifiable
         
         bool isPaused() const;
+        
 
         //devono essere pubblico o privato???
+        //can be private if initialized in the constructor in create a get function
         entityMang* m_entityMang;
-        assets* m_assets;
         gameEngine* m_game;
-
+        
     private:
-                
+        //public or private??
+        assets* m_assets;
+
         bool m_paused = false;
         bool m_hasEnded = false;
         
@@ -43,8 +52,8 @@ class sceneBase {
         //map from the name given of ACTION_NAME to the int of ncurses (ncurses criptation of key name)
         //TODO: change this in a more dinamic way
         //      conviene un vettore statico rispetto ad una mappa std::map?? cosa è più veloce nella ricerca
-        int m_actionMap[NUMBER_ACTION_NAME_DO_NOT_USE] = {};     //m_actionMap[action name] = action key of ncurses
-                                //NOTE: in this case ncurses have 93 possible key pressing
+        int m_actionMap[NUMBER_ACTION_NAME_DO_NOT_USE] = {};        //m_actionMap[action name] = action key of ncurses
+                                                                    //NOTE: in this case ncurses have 93 possible key pressing
 
 };
 

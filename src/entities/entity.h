@@ -5,7 +5,7 @@
 #include "../core/logger.h"
 
 //remove what not needed
-#include <memory>
+//#include <memory>
 
 /*Non è possibile aggiungere in entrambigli header file reciprocamente.
  * E' giusto dichiarare la classe nell'header file e includere l'altro hheader file solo nel .cpp file?
@@ -26,14 +26,12 @@ class entity {
         entity(const ENTITY_TYPE tag, std::size_t id);
         ~entity();
 
-        //here all shared_ptr of all the components 
+        //here all shared_ptr of all the components (old way)
         //std::shared_ptr<CWindow> cWindow;   //window on witch entity will be renered
         //std::shared_ptr<CTransform> cTransform; //position inside the window
         //std::shared_ptr<CSpriteNc> cSpriteNc;
         //std::shared_ptr<CCollisionShapeNc> cCollisionShapeNc;
         
-        
-        //possible to modify entoty tag in this way?
         const ENTITY_TYPE getTag() const;
         const std::size_t getId() const;
         
@@ -45,24 +43,27 @@ class entity {
         
         template<typename T> 
         void addComponent(T* c);    //add componet
-       
         
         template<typename T> 
         T* getComponent(){
-            return reinterpret_cast<T*>(m_components[0]);
+            //GDEBUG("getComponent called");
+            for (std::size_t i = 0; i<m_components.size(); i++) {
+                if (dynamic_cast<T*>(m_components.at(i))){
+                    //GDEBUG("Returned component with indeces %d", i);
+                    return reinterpret_cast<T*>(m_components[i]);
+                }
+            }
+            return nullptr;
         }
         
         /*
         template <class T>
         void removeComponent (T c);    //remove component 
         */
-        
-        
 
     private:
-        friend class entityMang;
-
-        //should be private constructor
+        //should be private constructor??? (note: in the scene class cannot create the m_player entity)
+        //friend class entityMang;
         //entity(const ENTITY_TYPE tag, std::size_t id);
 
         std::vector<Components*> m_components;
@@ -74,22 +75,18 @@ class entity {
        
 };
 
-//Template function declaration
 template<typename T> 
 void entity::addComponent(T* c) {
-    
     //GDEBUG("Adding component %s to entity with tag %d and id %d", c->name, m_tag, m_id);
-
-    m_components.emplace_back(c);
+    if (getComponent<T>() == nullptr) {
+        m_components.push_back(c);
+    } else {
+        //error or warn?
+        GWARN("Tryng to declare a duplicate component type on the same entity with tag %d and id %d", m_tag, m_id); 
+        //important because allocate the component class in heap memory without free it after:
+        delete c;
+        c = nullptr;
+    }
 }
-/*
-template<typename T> 
-T* getComponent() {
-    return m_components[0];
-}*/
-
-
-
-
 
 #endif

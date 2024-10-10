@@ -61,8 +61,15 @@ The main flags are:
 6. Assets managment
 7. Riorganizzare l'ordine nelle cartelle del progetto
 8. Ricontrollare le incluzioni negli header file
-9. Cambiare il vettore di shared pointer di entity in altro (vettore di puntatori normali?)
-10. Implementare la rimozione delle entità nell'entity manager
+9. ~~Cambiare il vettore di shared pointer di entity in altro (vettore di puntatori normali?)~~
+10. ~~Implementare la rimozione delle entità nell'entity manager~~
 
-# TO ADD
+# TO ADD in future
 - a way to verify that for each constructor called is being also called the destructor, usefull??
+- Collisiion detection with a grid of detection (for close distance collision) like in the particle simulations programs
+- for each entity, texture, world map, landscape, animations, lightining, sounds, particle system, AI systems, ..., objects create a fictitious preview (fast to render) to fast test this object while they are being constructed (coded)
+- Separete the game engime static code from the compilation code of the game
+- math and physiscs library
+- documentations (online, pdf, linux manpage, windows??, AI chatbot?)
+- Vulkan API, wayland? X11? 
+- tools nvim (vscode?) plugin

@@ -1,6 +1,7 @@
 #include "app.h"
 #include "core/logger.h"
 
+//#define NCURSES_WIDECHAR
 //#warning "aaaa"
 //#error "aaaa"
     

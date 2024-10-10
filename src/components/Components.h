@@ -3,6 +3,7 @@
 
 #include "../entities/constant.h"
 
+
 #include <ncurses.h>
 #include <filesystem>   //non includerlo qui???
 #include <vector>
@@ -39,6 +40,35 @@ class CInput : public virtual Components {
         bool down = false;
         bool right = false;
         bool left = false;
+};
+
+//#include <panel.h>
+class CWindow : public virtual Components {
+    public:
+        //all the information needed for ncurses to render a window with or without a custom borde
+        CWindow() {
+            //*borderCh = {'│', '│', '─', '─', '╭', '╮', '╰', '╯'}; 
+            //setcchar(borderCh[0], U'│', 0, 0, nullptr);
+        }
+        int x = 0, y = 0;           //position of the top left corner
+        int dimX = 0, dimY = 0;     //dimensions of the window
+        bool box = false;           //counturn of the window with 2 type character
+        bool border = false;        //custom counturn of the window with 7 type of character
+        //const cchar_t* borderCh[8];      //TODO: initialize with default value
+        char borderCh[8] = {};
+        char boxCh[2] = {0, 0};
+
+        WINDOW* win = nullptr;      //window referred to
+                                    //if not set refer to std window
+};
+
+class CCursorPosition : public virtual Components {
+    public:
+        int x = 0, y = 0;
+};
+
+class CAnimation : public virtual Components {
+    public:
 };
 
 //WARN: aggiustare!!
