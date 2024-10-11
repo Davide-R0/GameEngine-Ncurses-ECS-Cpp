@@ -1,0 +1,12 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Game Engine" <<Frame>> {
+!include GEngine.puml
+}
+
+package "Battleship Game" <<Frame>> {
+!include battleship.puml 
+}
+
+@enduml

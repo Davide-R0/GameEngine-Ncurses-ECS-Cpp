@@ -1,0 +1,23 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class scMenu {
+
+}
+
+scMenu <-- scene
+
+class scPlay{
+
+}
+
+scPlay <-- scene
+
+
+class scPause{
+
+}
+
+scPause <-- scene
+
+@enduml

@@ -27,7 +27,7 @@ class app {
         bool endGame();
         
         gameEngine* m_game;
-        int m_xScr, m_yScr;
+        
 };
 
 

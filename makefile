@@ -3,7 +3,10 @@
 
 CPP := g++
 CPPFLAGS := -Wall -g 
-LDFLAGS := -lncurses -ltinfo 
+
+#ncurses wide caracter varaint library
+LDFLAGS := -lncursesw -ltinfow 
+
 CXXFLAGS :=
 
 EXEC := main 

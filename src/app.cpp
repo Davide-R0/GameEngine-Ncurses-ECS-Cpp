@@ -2,8 +2,11 @@
 #include "core/logger.h"
 #include "scenes/gameEngine.h"
 
-//#include <iostream>
-#include <ncurses.h>
+//wide character ncurses variant
+#include <ncursesw/ncurses.h>
+//#include <ncurses.h>
+
+#include <locale.h>
 
 /**********************************/
 app *app::s_app = nullptr;
@@ -43,6 +46,9 @@ bool app::initApp() {
     */
 
     //(in case) init custom allocator
+    
+    //before init ncurses:
+    setlocale(LC_ALL, "");
 
     //init ncurses
     initscr();
@@ -58,9 +64,7 @@ bool app::initApp() {
 
     refresh();
     
-    //get standard screen dimension
-    getmaxyx(stdscr, m_yScr, m_xScr);
-    GINFO("Start up terminal size (%d,%d)", m_xScr, m_yScr);
+    
 
     return true;
 }

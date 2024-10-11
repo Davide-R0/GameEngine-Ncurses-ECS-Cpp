@@ -1,14 +1,19 @@
 #include "scPlay.h"
 #include "../core/logger.h"
 
-
 #include "../entities/entity.h"
 #include "../entities/entityMang.h"
 #include "../components/Components.h"
 #include "../actions/action.h"
 #include "../actions/actionConstants.h"
 #include "../assets/assets.h"
-#include <ncurses.h>
+
+//wide character ncurses varaint
+//#define NCURSES_WIDECHAR 1    //???
+//#define _XOPEN_SOURCE 700 
+#include <ncursesw/ncurses.h>
+//#include <ncursesw/curses.h>
+
 //#include "gameEngine.h"
 
 scPlay::scPlay() {
@@ -74,29 +79,86 @@ void scPlay::init() {
 
     m_entityMang->addEntity(BOARD);
 
-    m_entityMang->addEntity(WINDOW_REND);
+        
     //m_entityMang->update();
 
     //m_entityMang->removeEntity(PLAYER, m_entityMang->getEntities(PLAYER)[0]->getId());
-
+    m_entityMang->addEntity(WINDOW_REND);   //board window 
+    m_entityMang->addEntity(WINDOW_REND);   //command window 
+    m_entityMang->addEntity(WINDOW_REND);   //points window 
+    m_entityMang->addEntity(WINDOW_REND); //remaining ships window
     m_entityMang->update();
+    
+    
 
     //setting ocmponents
-
+    
+    //board window
     m_entityMang->getEntities(WINDOW_REND)[0]->addComponent<CWindow>(new CWindow());
     m_entityMang->getEntities(WINDOW_REND)[0]->addComponent<CCursorPosition>(new CCursorPosition());
     CWindow* window = m_entityMang->getEntities(WINDOW_REND)[0]->getComponent<CWindow>();
-    window->x = 20;
-    window->y = 15;
-    window->dimX = 100;
-    window->dimY = 25;
-    window->box = true;
+    window->x = 1;
+    window->y = 1;
+    window->dimX = (int)xScr*0.8 - 1;
+    window->dimY = yScr-4;  //space for command line
+    window->border = true;
+    
+    //command window 
+    m_entityMang->getEntities(WINDOW_REND)[1]->addComponent<CWindow>(new CWindow());
+    m_entityMang->getEntities(WINDOW_REND)[1]->addComponent<CCursorPosition>(new CCursorPosition());
+    window = m_entityMang->getEntities(WINDOW_REND)[1]->getComponent<CWindow>();
+    window->x = 1;
+    window->y = yScr-3;
+    window->dimX = xScr-1;
+    window->dimY = 3;  
+    window->border = true;
+
+    //points window 
+    m_entityMang->getEntities(WINDOW_REND)[2]->addComponent<CWindow>(new CWindow());
+    m_entityMang->getEntities(WINDOW_REND)[2]->addComponent<CCursorPosition>(new CCursorPosition());
+    window = m_entityMang->getEntities(WINDOW_REND)[2]->getComponent<CWindow>();
+    window->x = (int)xScr*0.8;
+    window->y = 1;
+    window->dimX = (int)xScr*0.2-1;
+    window->dimY = (int)yScr*0.2-2;
+    window->border = true;
+
+    //remaining ships window 
+    m_entityMang->getEntities(WINDOW_REND)[3]->addComponent<CWindow>(new CWindow());
+    m_entityMang->getEntities(WINDOW_REND)[3]->addComponent<CCursorPosition>(new CCursorPosition());
+    window = m_entityMang->getEntities(WINDOW_REND)[3]->getComponent<CWindow>();
+    window->x = (int)xScr*0.8;
+    window->y = (int)yScr*0.2-1;
+    window->dimX = (int)xScr*0.2-1;
+    window->dimY = (int)yScr*0.8-1;  
+    window->border = true;
+    
+    sStaticNcRender();
+    //choose the window on focus
+    m_focusWindow = m_entityMang->getEntities(WINDOW_REND)[0];
+    m_focusWindow->getComponent<CCursorPosition>()->x = 1;
+    m_focusWindow->getComponent<CCursorPosition>()->y = 1;
+    wmove(m_focusWindow->getComponent<CWindow>()->win, m_focusWindow->getComponent<CCursorPosition>()->y, m_focusWindow->getComponent<CCursorPosition>()->x); //move cursor
+    wrefresh(m_focusWindow->getComponent<CWindow>()->win);
+    
+    //cursor visibility
+    curs_set(0);    //0 = invisible
+                    //1 = terminal specific
+                    //2 = always
+
+/*
+    setcchar(&window->borderCh[0], L"║", 0, 0, nullptr);
+    setcchar(&window->borderCh[1], L"║", 0, 0, nullptr);
+    setcchar(&window->borderCh[2], L"═", 0, 0, nullptr);
+    setcchar(&window->borderCh[3], L"═", 0, 0, nullptr);
+    setcchar(&window->borderCh[4], L"╔", 0, 0, nullptr);
+*/
 
     //BUT if the component have a constructor with logic is necessary to call the constructor each time the new component is added, like this: (there is no other way to do this)
     m_entityMang->getEntities(BOARD)[0]->addComponent<CInput>(new CInput());
     m_entityMang->getEntities(BOARD)[0]->addComponent<CTransform>(new CTransform(10,10));
     //m_entityMang->getEntities(BOARD)[0]->addComponent<CTransform>(new CTransform(10,10));   //note if tryng to add two same componets on the same entity the second will be destructed by default
-
+    
     //and to access che component:    
     GDEBUG("Component name %s", m_entityMang->getEntities(BOARD)[0]->getComponent<CTransform>()->name);
 
@@ -109,18 +171,7 @@ void scPlay::init() {
     
     
 
-    sStaticNcRender();
-    //choose the window on focus
-    m_focusWindow = m_entityMang->getEntities(WINDOW_REND)[0];
-    m_focusWindow->getComponent<CCursorPosition>()->x = 1;
-    m_focusWindow->getComponent<CCursorPosition>()->y = 1;
-    wmove(m_focusWindow->getComponent<CWindow>()->win, m_focusWindow->getComponent<CCursorPosition>()->y, m_focusWindow->getComponent<CCursorPosition>()->x); //move cursor
-    wrefresh(m_focusWindow->getComponent<CWindow>()->win);
     
-    //cursor visibility
-    curs_set(0);    //0 = invisible
-                    //1 = terminal specific
-                    //2 = always 
 
     /*
     move(x, y); //on the same screen??
@@ -148,17 +199,17 @@ void scPlay::sStaticNcRender() {
             //full 7 character border
             if (windowToRender->win == nullptr) {
                 //std window border
-                border(windowToRender->borderCh[0], windowToRender->borderCh[1], windowToRender->borderCh[2], windowToRender->borderCh[3], 
-                       windowToRender->borderCh[4], windowToRender->borderCh[5], windowToRender->borderCh[6], windowToRender->borderCh[7]);
+                border_set(&windowToRender->borderCh[0], &windowToRender->borderCh[1], &windowToRender->borderCh[2], &windowToRender->borderCh[3], 
+                           &windowToRender->borderCh[4], &windowToRender->borderCh[5], &windowToRender->borderCh[6], &windowToRender->borderCh[7]);
             
             } else {        
-                wborder(windowToRender->win, windowToRender->borderCh[0], windowToRender->borderCh[1], windowToRender->borderCh[2], windowToRender->borderCh[3], 
-                                             windowToRender->borderCh[4], windowToRender->borderCh[5], windowToRender->borderCh[6], windowToRender->borderCh[7]);
+                wborder_set(windowToRender->win, &windowToRender->borderCh[0], &windowToRender->borderCh[1], &windowToRender->borderCh[2], &windowToRender->borderCh[3], 
+                                                 &windowToRender->borderCh[4], &windowToRender->borderCh[5], &windowToRender->borderCh[6], &windowToRender->borderCh[7]);
             } 
         } else if (windowToRender->box == true){
             //2 character border
             //GDEBUG("------Rendering simple box");
-            box(windowToRender->win, windowToRender->boxCh[0], windowToRender->boxCh[1]);
+            box_set(windowToRender->win, &windowToRender->boxCh[0], &windowToRender->boxCh[1]);
         }
         
 

@@ -1,10 +1,16 @@
 #include "sceneBase.h"
 #include "../core/logger.h"
 #include <cstdlib> //size_t
+//wide character ncurses varaint
+#include <ncursesw/ncurses.h>
 
 sceneBase::sceneBase() {
     GTRACE("Scene base class constructor called");
     m_assets = new assets();
+
+    //get standard screen dimension
+    getmaxyx(stdscr, yScr, xScr);
+    GINFO("Start up terminal size (%d,%d)", xScr, yScr);
 }
 
 sceneBase::~sceneBase() {

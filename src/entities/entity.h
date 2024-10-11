@@ -12,12 +12,14 @@
  */
 //#include "entityMang.h"
 //class entityMang;
-#include <ncurses.h>
+//wide character ncurses variant
+//#define NCURSES_WIDECHAR 1
+//#include <ncursesw/ncurses.h>
+
 #include <string>
 #include <vector>
 
 class Components;
-//#include "../components/Components.h"
 
 //NOTE: a template member function of a class decleration MUST be in the header file
 

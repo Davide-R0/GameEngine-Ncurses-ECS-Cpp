@@ -1,6 +1,10 @@
 #include "gameEngine.h"
 #include "../core/logger.h"
-#include <ncurses.h>
+
+//wide character ncurses variant
+#include <ncursesw/ncurses.h>
+//#include <ncurses.h>
+
 #include "sceneBase.h"
 #include "scPlay.h"
 #include "sceneConstants.h"

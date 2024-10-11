@@ -1,0 +1,141 @@
+
+aggiungere tutti gli enum
+
+
+@startuml
+skinparam classAttributeIconSize 0
+
+class app << (S,#FF7700) Singleton >> {
+    +start(): void
+    +end(): void
+    {static} +getIstance(): app*
+    -initApp(): bool
+    -endApp(): bool
+    -loopApp(): void
+    {static} -s_app: app*
+    -app()
+}
+
+enum SCENE_TAG {
+
+}
+
+class gameEngine << (S,#FF7700) Singleton >> {
+..
++gameEngine(const gameEngine& other) = delete
++operator=(const gameEngine&) = delete: void
++{static}getInstance(): gameEngine*
+..
++\~gameEngine()
++run(): void
++update(): void
++changeScene(tag: SCENE_TAG, scene: sceneBase&): void 
++sUserInput(): void
+..
+-gameEngine()
+-{static} s_gameEngine: gameEngine*
+..
+-m_scenes[NUMBER_SCENE_TAG_DO_NOT_USE] = {}: sceneBase* 
+-m_currentScene: SCENE_TAG 
+-m_running = true: bool
+-init(): void 
+-currentScene() const: sceneBase*
+}
+
+SCENE_TAG -[hidden]> gameEngine
+
+enum ENTITY_TYPE {
+DEFAULT
+PLAYER
+NUMBER_ENTITY_TYPE_DO_NOT_USE
+}
+
+class entityMang {
++entityMang()
++\~entityMang()
++update(): void
++addEntity (tag: const ENTITY_TYPE&): entity*
++removeEntity(tag: const ENTITY_TYPE&, id: const std::size_t): void
++getEntities() const: const std::vector<entity*>&
++getEntities(tag: const ENTITY_TYPE&) const: const std::vector<entity*>&
+-m_entities: std::vector<entity*>
+-m_toAdd: std::vector<entity*> 
+-m_entityMap[NUMBER_ENTITY_TYPE_DO_NOT_USE] = {}: std::vector<entity*> 
+-m_removingQueue = false: bool
+-m_totalEntities = 0: std::size_t 
+-removeDeadEntity(): void 
+}
+
+
+
+class entity {
++entity(tag: const ENTITY_TYPE, id: std::size_t)
++\~entity()
++getTag() const: const ENTITY_TYPE
++getId() const: const std::size_t
++isAlive() const: bool 
++isToRender() const: bool
++destroy(): void 
++toRender(toRender = false: bool): void
++addComponent(c: T*): template<typename T> void 
++getComponent(): template<typename T> T*
+-m_components: std::vector<Components*>
+-m_id = 0: const std::size_t
+-m_tag = DEFAULT: const ENTITY_TYPE
+-m_alive = true: bool 
+-m_isToRender = true: bool
+}
+
+entityMang <-- entity
+
+enum TEXTURE_NAME {
+
+}
+
+class assets {
++assets()
++\~assets()
++addNcTexture(name: TEXTURE_NAME, path: std::filesystem::path): bool
+-m_texture[NUMBER_TEXTURE_NAME_DO_NOT_USE] = {}: std::string 
+-nLine[NUMBER_TEXTURE_NAME_DO_NOT_USE]: int 
+-lenLine[NUMBER_TEXTURE_NAME_DO_NOT_USE]: int
+}
+
+TEXTURE_NAME -[hidden]> entityMang
+
+enum SCENE_TAG {
+
+}
+
+abstract class scene {
++sceneBase()
++{virtual}\~sceneBase()
++{virtual}update() = 0: void
++{virtual}sDoAction(act: const action*) = 0: void
++{virtual}sRender() = 0: void
++simulate(n: int): void
++registerAction(ch: int, name: ACTION_NAME): void
++getActionName(ch: int) const: ACTION_NAME 
++getAssets(): assets*
++isPaused() const: bool
++m_entityMang: entityMang* 
++m_game: gameEngine* 
++xScr: int
++yScr: int
+-m_assets: assets*
+-m_paused = false: bool
+-m_hasEnded = false: bool
+-m_actionMap[NUMBER_ACTION_NAME_DO_NOT_USE] = {}: int
+}
+
+SCENE_TAG -[hidden]> entityMang
+
+note left of scene::"xScr: int"
+  Per ncurses 
+end note 
+
+scene --> entityMang  
+scene --> gameEngine
+scene --> assets
+
+@enduml

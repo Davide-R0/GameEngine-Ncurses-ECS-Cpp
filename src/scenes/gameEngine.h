@@ -17,7 +17,7 @@ class gameEngine {
         ~gameEngine();
         void run();     //main loop 
         void update();
-        void quit();
+        //void quit();
         void changeScene(SCENE_TAG tag, sceneBase& scene);
         //window& getWindow();
         void sUserInput();

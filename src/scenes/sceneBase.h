@@ -13,7 +13,7 @@ class entityMang;
 class assets;
 class action;
 
-#include <ncurses.h>
+//#include <ncurses.h>
 
 //abstract class 
 class sceneBase {
@@ -40,6 +40,9 @@ class sceneBase {
         //can be private if initialized in the constructor in create a get function
         entityMang* m_entityMang;
         gameEngine* m_game;
+
+        //for ncurses
+        int xScr, yScr;
         
     private:
         //public or private??

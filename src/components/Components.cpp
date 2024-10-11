@@ -1,5 +1,5 @@
 #include "Components.h"
-#include <ncurses.h>
+//#include <ncursesw/ncurses.h>
 
 #include "../core/logger.h"
 
@@ -25,70 +25,93 @@ CInput::~CInput() {
     GDEBUG("CInput destructor called");
 }
 
-/*
-CWindow::CWindow(int line_X, int line_Y, int X, int Y, WINDOW* parent_win) : y(Y), x(X), line_y(line_Y), line_x(line_X) {
-    //NOTE: add error if parent_win is null ptr
-    *//*
-    if (parent_win == stdscr) {
-        m_win = newwin(line_X, line_Y, X, Y);  
-    } else {
-        m_win = subwin(parent_win, line_X, line_Y, X, Y);
-    }
-    *//*
+CWindow::CWindow() {
+    GDEBUG("CWindow constructor called");
+
+    //std curve border 
+    setcchar(&borderCh[0], L"│", 0, 0, nullptr);
+    setcchar(&borderCh[1], L"│", 0, 0, nullptr);
+    setcchar(&borderCh[2], L"─", 0, 0, nullptr);
+    setcchar(&borderCh[3], L"─", 0, 0, nullptr);
+    setcchar(&borderCh[4], L"╭", 0, 0, nullptr);
+    setcchar(&borderCh[5], L"╮", 0, 0, nullptr);
+    setcchar(&borderCh[6], L"╰", 0, 0, nullptr);
+    setcchar(&borderCh[7], L"╯", 0, 0, nullptr);
+    
+    //std box 
+    setcchar(&boxCh[0], L"│", 0, 0, nullptr);
+    setcchar(&boxCh[1], L"─", 0, 0, nullptr);
 }
 
 CWindow::~CWindow() {
-    //TODO: add log error if problem 
-    
-    //delete window 
-    //delwin(m_win);
+    GDEBUG("CWindow destructor called");
+
+}
+
+/*
+   CWindow::CWindow(int line_X, int line_Y, int X, int Y, WINDOW* parent_win) : y(Y), x(X), line_y(line_Y), line_x(line_X) {
+//NOTE: add error if parent_win is null ptr
+*//*
+     if (parent_win == stdscr) {
+     m_win = newwin(line_X, line_Y, X, Y);  
+     } else {
+     m_win = subwin(parent_win, line_X, line_Y, X, Y);
+     }
+     *//*
+          }
+
+          CWindow::~CWindow() {
+//TODO: add log error if problem 
+
+//delete window 
+//delwin(m_win);
 }
 
 const WINDOW* CWindow::getWin() const {
-    return m_win;
+return m_win;
 }
 */
 /*
-CSpriteNc::CSpriteNc(char* sprite, int x, int y) : m_y(y), m_x(x), m_sprite(sprite) {
+   CSpriteNc::CSpriteNc(char* sprite, int x, int y) : m_y(y), m_x(x), m_sprite(sprite) {
 
-}
+   }
 
-CSpriteNc::~CSpriteNc() {
-    
-}
+   CSpriteNc::~CSpriteNc() {
 
-const char* CSpriteNc::getSprite() const {
-    return m_sprite;
-}
+   }
 
-int CSpriteNc::getX() const {
-    return m_x;
-}
+   const char* CSpriteNc::getSprite() const {
+   return m_sprite;
+   }
 
-int CSpriteNc::getY() const {
-    return m_y;
-}
+   int CSpriteNc::getX() const {
+   return m_x;
+   }
 
-CCollisionShapeNc::CCollisionShapeNc(char* sprite, int x, int y) : m_y(y), m_x(x), m_sprite(sprite) {
-    
-}
+   int CSpriteNc::getY() const {
+   return m_y;
+   }
 
-CCollisionShapeNc::~CCollisionShapeNc() {
+   CCollisionShapeNc::CCollisionShapeNc(char* sprite, int x, int y) : m_y(y), m_x(x), m_sprite(sprite) {
 
-}
+   }
 
-const char* CCollisionShapeNc::getSprite() const {
-    return m_sprite;
-}
+   CCollisionShapeNc::~CCollisionShapeNc() {
 
-int CCollisionShapeNc::getX() const {
-    return m_x;
-}
+   }
 
-int CCollisionShapeNc::getY() const {
-    return m_y;
-}
-*/
+   const char* CCollisionShapeNc::getSprite() const {
+   return m_sprite;
+   }
+
+   int CCollisionShapeNc::getX() const {
+   return m_x;
+   }
+
+   int CCollisionShapeNc::getY() const {
+   return m_y;
+   }
+   */
 
 
 

@@ -3,8 +3,12 @@
 
 #include "../entities/constant.h"
 
+//wide character ncurses variant
+//#define NCURSES_WIDECHAR 1
+#include <ncursesw/ncurses.h>
+//#include <ncurses.h>
 
-#include <ncurses.h>
+
 #include <filesystem>   //non includerlo qui???
 #include <vector>
 //#include <string>
@@ -42,23 +46,23 @@ class CInput : public virtual Components {
         bool left = false;
 };
 
-//#include <panel.h>
 class CWindow : public virtual Components {
     public:
         //all the information needed for ncurses to render a window with or without a custom borde
-        CWindow() {
-            //*borderCh = {'│', '│', '─', '─', '╭', '╮', '╰', '╯'}; 
-            //setcchar(borderCh[0], U'│', 0, 0, nullptr);
-        }
-        int x = 0, y = 0;           //position of the top left corner
-        int dimX = 0, dimY = 0;     //dimensions of the window
+        CWindow();
+        ~CWindow();
+
+        int x = 0;
+        int y = 0;           //position of the top left corner
+        int dimX = 0;
+        int dimY = 0;     //dimensions of the window
         bool box = false;           //counturn of the window with 2 type character
         bool border = false;        //custom counturn of the window with 7 type of character
-        //const cchar_t* borderCh[8];      //TODO: initialize with default value
-        char borderCh[8] = {};
-        char boxCh[2] = {0, 0};
+         
+        cchar_t borderCh[8];
+        cchar_t boxCh[2];
 
-        WINDOW* win = nullptr;      //window referred to
+        WINDOW* win = stdscr;      //window referred to
                                     //if not set refer to std window
 };
 
