@@ -1,3 +1,7 @@
 build/
 *.log
 *.log.old
+doc/linux_manpage_doc
+src/backend
+src/core/gmemory.h
+src/core/gmemory.cpp
