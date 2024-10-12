@@ -1,12 +1,11 @@
 #include "scPlay.h"
-#include "../core/logger.h"
-
-#include "../entities/entity.h"
-#include "../entities/entityMang.h"
-#include "../components/Components.h"
-#include "../actions/action.h"
-#include "../actions/actionConstants.h"
-#include "../assets/assets.h"
+#include "../../core/logger.h"
+#include "../../entities/entity.h"
+#include "../../entities/entityMang.h"
+#include "../../components/Components.h"
+#include "../../actions/action.h"
+#include "../../actions/actionConstants.h"
+#include "../../assets/assets.h"
 
 //wide character ncurses varaint
 //#define NCURSES_WIDECHAR 1    //???

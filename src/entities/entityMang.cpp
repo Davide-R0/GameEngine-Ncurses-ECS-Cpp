@@ -1,7 +1,8 @@
 #include "entityMang.h"
-#include "constant.h"
+//#include "entityConstants.h" 
 #include "../core/logger.h"
 #include "entity.h"
+
 #include <algorithm>
 
 /**********************************/

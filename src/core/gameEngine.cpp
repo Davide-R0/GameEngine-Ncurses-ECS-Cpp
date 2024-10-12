@@ -5,9 +5,9 @@
 #include <ncursesw/ncurses.h>
 //#include <ncurses.h>
 
-#include "sceneBase.h"
-#include "scPlay.h"
-#include "sceneConstants.h"
+#include "../scenes/scene.h"
+//#include "scPlay.h"
+//#include "../scenes/sceneConstants.h"
 #include "../actions/action.h"
 #include <cstdlib> //size_t
 
@@ -37,9 +37,7 @@ void gameEngine::init() {
     //start with a scene
     GTRACE("Game engine init");
 
-    m_currentScene = PLAY;
-    m_scenes[m_currentScene] = new scPlay();
-}
+    }
 
 void gameEngine::run() {
     //main loop
@@ -86,14 +84,14 @@ void gameEngine::run() {
     GINFO("Game loop ended");
 }
 
-void gameEngine::changeScene(SCENE_TAG tag, sceneBase& scene) {
+void gameEngine::changeScene(SCENE_TAG tag, scene* scene) {
     //TODO: controllare che non si stiano copiando dati inutilmente (specialmente che non si stia copiando l'intera "scene")
     //TODO: aggiungere controlli
     m_currentScene = tag;
-    m_scenes[tag] = &scene;
+    m_scenes[tag] = scene;
 }
 
-sceneBase* gameEngine::currentScene() const {
+scene* gameEngine::currentScene() const {
     return m_scenes[m_currentScene];
 }
 

@@ -1,5 +1,5 @@
 #include "entity.h"
-#include "constant.h"
+//#include "entityConstants.h"
 #include "../components/Components.h" 
 #include "../core/logger.h"
 #include <vector>

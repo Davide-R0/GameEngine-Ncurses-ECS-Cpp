@@ -1,5 +1,5 @@
-#ifndef CONSTANT_H
-#define CONSTANT_H
+#ifndef ENTITYCONSTANTS_H
+#define ENTITYCONSTANTS_H
 
 enum ENTITY_TYPE{
     DEFAULT,

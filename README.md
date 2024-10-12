@@ -54,14 +54,14 @@ The main flags are:
 4. AI
 5. Renderer
 
-## Future optimization
+# TODO
 1. ~~Multi scene managment~~
 2. ~~Action managment~~
 3. ~~Game loop~~
 4. Add assertion
 5. Add custom memory allocator
-6. Assets managment
-7. Riorganizzare l'ordine nelle cartelle del progetto
+6. ~~Assets managment~~
+7. ~~Riorganizzare l'ordine nelle cartelle del progetto~~
 8. Ricontrollare le incluzioni negli header file
 9. ~~Cambiare il vettore di shared pointer di entity in altro (vettore di puntatori normali?)~~
 10. ~~Implementare la rimozione delle entità nell'entity manager~~
@@ -70,10 +70,10 @@ The main flags are:
 13. implementare la scena di gioco
 14. Implementare la logica di gioco
 15. Implementare la scena pausa
-16. spostare tutte le definizioni degli enum nei corrispettivi header file
-17. rinominare la classe `scenaBase` in `scene`
+16. spostare tutte le definizioni degli enum nei corrispettivi header file ???
+17. ~~rinominare la classe `scenaBase` in `scene`~~
 
-# TODO
+# Future Optimizations
 - custom memory allocator, array?, vector, math, phisics library
 - all the systems
 - implements grapics api 
@@ -92,8 +92,8 @@ The main flags are:
 
 
 
-writing Convenctions:
+# Writing Convenctions:
 - sructs name: small letters with maiusc letter to separate 
 - enum name, enum value: maiusc name with `_` as space 
-- function: small letters with `_` as spaces
-- private data member start with `m_`
+- function: small letters with Maiusc as separator
+- private data member start with `m_` and `s_` for static

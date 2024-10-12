@@ -1,7 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "constant.h"
+#include "entityConstants.h"
 #include "../core/logger.h"
 
 //remove what not needed

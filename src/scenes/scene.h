@@ -1,5 +1,5 @@
-#ifndef SCENEBASE_H
-#define SCENEBASE_H
+#ifndef SCENE_H
+#define SCENE_H
 
 #include "../actions/actionConstants.h"
 //#include "../assets/assets.h"
@@ -7,8 +7,8 @@
 //???
 //NOTE: includere tutte le classi da cui è composto??
 
-#include "gameEngine.h"
-//class gameEngine;
+//#include "gameEngine.h"
+class gameEngine;
 class entityMang;
 class assets;
 class action;
@@ -16,10 +16,10 @@ class action;
 //#include <ncurses.h>
 
 //abstract class 
-class sceneBase {
+class scene {
     public:
-        sceneBase();
-        virtual ~sceneBase();
+        scene();
+        virtual ~scene();
 
         virtual void update() = 0;
         virtual void sDoAction(const action* act) = 0;

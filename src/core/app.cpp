@@ -1,6 +1,6 @@
 #include "app.h"
-#include "core/logger.h"
-#include "scenes/gameEngine.h"
+#include "logger.h"
+#include "gameEngine.h"
 
 //wide character ncurses variant
 #include <ncursesw/ncurses.h>
@@ -73,7 +73,7 @@ bool app::initApp() {
 bool app::initGame() {
 
     m_game = gameEngine::getInstance();
-    m_game->run();
+    
 
     return true;
 }
@@ -97,4 +97,8 @@ bool app::endGame() {
     //m_game->end();
     
     return true;
+}
+
+gameEngine* app::getEngine() const {
+    return m_game;
 }

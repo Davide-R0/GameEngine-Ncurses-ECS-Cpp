@@ -1,7 +1,7 @@
 #ifndef ENTITYMANG_H
 #define ENTITYMANG_H
 
-#include "constant.h"
+#include "entityConstants.h"
 
 /*Non è possibile aggiungere in entrambigli header file peciprocamente.
  * E' giusto dichiarare la classe nell'header file e includere l'altro hheader file solo nel .cpp file?

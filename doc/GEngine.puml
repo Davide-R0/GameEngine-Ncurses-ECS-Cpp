@@ -29,7 +29,7 @@ class gameEngine << (S,#FF7700) Singleton >> {
 +\~gameEngine()
 +run(): void
 +update(): void
-+changeScene(tag: SCENE_TAG, scene: sceneBase&): void 
++changeScene(tag: SCENE_TAG, scene: sceneBase*): void 
 +sUserInput(): void
 ..
 -gameEngine()

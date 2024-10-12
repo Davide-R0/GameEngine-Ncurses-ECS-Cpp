@@ -16,6 +16,8 @@ class app {
         void start();
         void end();
 
+        gameEngine* getEngine() const;
+
     private:
         /**********************************/
         app() {}; //constructor

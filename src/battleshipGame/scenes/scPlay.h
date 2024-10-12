@@ -1,19 +1,20 @@
 #ifndef SCPLAY_H
 #define SCPLAY_H
 
-/*  Example of a scene in witch is being print the key number pressed and crated some entities
+/*  Example of a scene in wich is being print the key number pressed and crated some entities
  *  must be declared:
  *  -update();
  *  -sRender();
  *  -sDoAction(action);
  */
 
-#include "sceneBase.h"
+#include "../../scenes/scene.h"
+#include <cstdlib> //size_t
+
 class entity;
-class action;
 
 //scene specific game example 
-class scPlay : public virtual sceneBase {
+class scPlay : public virtual scene {
     public:
         scPlay();
         ~scPlay();

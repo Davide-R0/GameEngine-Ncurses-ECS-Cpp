@@ -1,7 +1,7 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 
-#include "../entities/constant.h"
+#include "../entities/entityConstants.h"
 
 //wide character ncurses variant
 //#define NCURSES_WIDECHAR 1
