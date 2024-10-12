@@ -6,15 +6,15 @@
 - Ncurses library
 - ECS: Entity, Component, Systems
 - Makefile [^1]
-- Game engine is not separate from the core application's function [^2]
+- The Game engine is not a library [^2]
 
 [^1]: In future CMake.
-[^2]: A scopo didattico.
+[^2]: For simplicity's sake, but it's _easly_ implementable.
 
 ## Requirements
 - Linux
 
-In most distro `Ncurses` is installed by default, otherwise you need to install the library.
+In most distro `Ncurses` is installed by default, otherwise you need to install the library. Check also if `Ncursesw` for wide character support is present.
 
 > **_NOTE:_** Note on log file:
 > - it is raccomanded to open the log file with therminal program like `less`, `cat`, etc...
@@ -22,12 +22,12 @@ In most distro `Ncurses` is installed by default, otherwise you need to install 
 
 ## Compiling
 
-### Flags 
-The main flags are:
+### Compiling Flags 
+The main compiling flags are:
 - Ncurses: `-lncurses`
-    - For wide character: `-lncursesw`
+    - For wide character support: `-lncursesw`
 - In some cases the ncurses library is split in this other library: `-ltinfo` (use this flag if the compiler give an error on undefined reference to `stdscr`)
-    - For wide character: `-ltinfow`
+    - For wide character support: `-ltinfow`
 - form?
 - Debugging: `-g`, `-Wall`
 
@@ -38,8 +38,7 @@ The main flags are:
 - before component class name `C..`, es: `CSprite`, `CBox`, ...
 - before component instatiation of class `c...`, es: `cSprite`, ...
 - this two roule are the same with systems with `s`
-- private member variable have `m_...`, es: `m_cSprite`, ...
-- variable and function name use maiusc character as delimiter: es: `gameEngine`, `modGravityExp`, `veryLongVariable` ...
+
 
 ### General:
 - Components: store only pure data, no logic
@@ -54,11 +53,17 @@ The main flags are:
 4. AI
 5. Renderer
 
+# Writing Convenctions:
+- sructs name: small letters with maiusc letter to separate 
+- enum name, enum value: maiusc name with `_` as separator
+- variable and function name use maiusc character as separator: es: `gameEngine`, `modGravityExp`, `veryLongVariable` ...
+- private data member start with `m_` and `s_` for static
+
 # TODO
 1. ~~Multi scene managment~~
 2. ~~Action managment~~
 3. ~~Game loop~~
-4. Add assertion
+4. Add custom assertions
 5. Add custom memory allocator
 6. ~~Assets managment~~
 7. ~~Riorganizzare l'ordine nelle cartelle del progetto~~
@@ -92,8 +97,4 @@ The main flags are:
 
 
 
-# Writing Convenctions:
-- sructs name: small letters with maiusc letter to separate 
-- enum name, enum value: maiusc name with `_` as space 
-- function: small letters with Maiusc as separator
-- private data member start with `m_` and `s_` for static
+
