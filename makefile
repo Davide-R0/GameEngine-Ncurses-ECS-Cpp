@@ -31,6 +31,8 @@ run: $(BUILD_DIR)/$(EXEC)
 #if the program exit with an error make will tell something like: "make: *** [makefile:--: run] Error 1"
 
 # The final build step.
+build: $(BUILD_DIR)/$(EXEC)
+
 $(BUILD_DIR)/$(EXEC): $(OBJS)
 	$(CPP) $(OBJS) -o $@ $(LDFLAGS)
 

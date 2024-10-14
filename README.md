@@ -3,25 +3,26 @@
 > **_NOTE:_** Project for personal educational purposes.
 
 - CLI application 
-- Ncurses library
+- Ncurses library (wide character support)
 - ECS: Entity, Component, Systems
 - Makefile [^1]
 - Complete documenatation (with uml diagrams for a fast overview)
 - The Game engine is not a library [^2]
 - Simple battleship game made with the engine
+- Custom logger and assetrions
+- TODO: custom allocator
+- Main loop single threaded and frame limited
 
-Other spec:
-- main loop single threaded
-
-[^1]: In future CMake.
-[^2]: For simplicity's sake, but it's _easly_ implementable.
-
+[^1]: In future CMake??.
+[^2]: For simplicity's sake, but it's _easy_ to implement.
 
 ## Images
 ![menu](doc/menuScreen.png)
 
 ## Requirements
 - Linux
+- Make
+- Minimal terminal size: $\approx>$ 130 x 50 blocks
 
 In most distro `Ncurses` is installed by default, otherwise you need to install the library. Check also if `Ncursesw` for wide character support is present.
 
@@ -31,13 +32,25 @@ In most distro `Ncurses` is installed by default, otherwise you need to install 
 
 ## Compiling
 
+- To build locally the project, in base project folder:
+```shell
+make build
+```
+- Run:
+```shell
+./build/main 
+```
+- Clean: 
+```shell
+make clean
+```
+
 ### Compiling Flags 
-The main compiling flags are:
+The main compiling flags used are:
 - Ncurses: `-lncurses`
     - For wide character support: `-lncursesw`
 - In some cases the ncurses library is split in this other library: `-ltinfo` (use this flag if the compiler give an error on undefined reference to `stdscr`)
     - For wide character support: `-ltinfow`
-- form?
 - Debugging: `-g`, `-Wall`
 
 
@@ -75,7 +88,7 @@ No particular order:
 - ~~Action managment~~
 - ~~Game loop~~
 - ~~Add custm logger~~
-- Add custom assertions
+- ~~Add custom assertions~~
 - Add custom memory allocator
 - ~~Assets managment~~
 - ~~Riorganizzare l'ordine nelle cartelle del progetto~~
@@ -91,15 +104,15 @@ No particular order:
 - ~~rinominare la classe `scenaBase` in `scene`~~
 - Add licence to the repository
 
-# Future Optimizations
+# Future Optimizations 
+##### (For another graphic game engine)
 - custom memory allocator, array?, vector, math, phisics library
 - all the systems
 - implements grapics api 
 - separare il core engine dai sistemi e dal source code del gioco
-- 
 
 # TO ADD in future 
-- a way to verify that for each constructor called is being also called the destructor, usefull??
+##### (For another graphic game engine)
 - Collisiion detection with a grid of detection (for close distance collision) like in the particle simulations programs
 - for each entity, texture, world map, landscape, animations, lightining, sounds, particle system, AI systems, ..., objects create a fictitious preview (fast to render) to fast test this object while they are being constructed (coded)
 - Separete the game engime static code from the compilation code of the game
