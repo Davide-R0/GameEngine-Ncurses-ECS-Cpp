@@ -12,10 +12,13 @@
 
 Other spec:
 - main loop single threaded
-- limit fps
 
 [^1]: In future CMake.
 [^2]: For simplicity's sake, but it's _easly_ implementable.
+
+
+## Images
+![menu](doc/menuScreen.png)
 
 ## Requirements
 - Linux
