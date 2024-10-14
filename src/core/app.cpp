@@ -1,5 +1,6 @@
 #include "app.h"
 #include "logger.h"
+#include "asserts.h"
 #include "gameEngine.h"
 
 //wide character ncurses variant
@@ -43,6 +44,12 @@ bool app::initApp() {
     GINFO("Info logger %f", 5.231);
     GDEBUG("Debug logger %f", 5.231);
     GTRACE("Trace logger %f", 5.231);
+    */
+    
+    //asserts test
+    /*
+    GASSERT_MSG(1==3-1, "assert di prova");
+    GASSERT(1==2);
     */
 
     //(in case) init custom allocator

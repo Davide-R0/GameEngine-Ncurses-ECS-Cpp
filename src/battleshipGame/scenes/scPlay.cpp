@@ -33,9 +33,10 @@ scPlay::~scPlay() {
 //before a scene change call a prerendering function to render the static object on the screen (like the board, the windows, ecc..)
 
 void scPlay::update() {
+     GDEBUG("scplay update");
     m_entityMang->update();
 
-    wmove(m_focusWindow->getComponent<CWindow>()->win, m_focusWindow->getComponent<CCursorPosition>()->y, m_focusWindow->getComponent<CCursorPosition>()->x); //move cursor
+    //wmove(m_focusWindow->getComponent<CWindow>()->win, m_focusWindow->getComponent<CCursorPosition>()->y, m_focusWindow->getComponent<CCursorPosition>()->x); //move cursor
 
     if (!isPaused()) {
         //call systems ...
@@ -45,8 +46,9 @@ void scPlay::update() {
 }
 
 void scPlay::init() {
+     GDEBUG("Init scene PLAY");
     //Initialization assets
-    getAssets()->addNcTexture(BASE, "assets/textures/texture.txt");
+    //getAssets()->addNcTexture(BASE, "assets/textures/texture.txt");
 
     //getAssets()->addNcTexture(BASE, "assets/textures/texture.txt"); //give an error log is try to rewrite the same texture (but it will rewrite anyway)
 
@@ -168,7 +170,7 @@ void scPlay::init() {
     m_player = new entity(PLAYER, -1);
     m_player->addComponent<CInput>(new CInput());
     
-    
+     GDEBUG("End init Sene PLAY");
 
     
 

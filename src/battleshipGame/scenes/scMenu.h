@@ -3,8 +3,10 @@
 
 #include "../../scenes/scene.h"
 #include <cstdlib>
-
+#include "sMenu.h"
 class entity;
+
+//TODO: rinominare getAssets() to getAssetManager()
 
 class scMenu : public virtual scene {
     public:
@@ -18,8 +20,10 @@ class scMenu : public virtual scene {
     private:
         //ncurses utlity
         entity* m_focusWindow;
+        
+        menu* m_menu;
 
-        entity* m_player;
+        //entity* m_player;
         //player config
         //level path: string
         std::size_t m_currentFrame = 0; //like for last enemy spown time
@@ -30,6 +34,7 @@ class scMenu : public virtual scene {
 
         //systems
         void sStaticNcRender(); //render called only at the begining of the scene
+        void sImageNcRender(entity* ent);
         void sRender(); //it must be always implemented!
         void sAnimation();
         void sMovement();

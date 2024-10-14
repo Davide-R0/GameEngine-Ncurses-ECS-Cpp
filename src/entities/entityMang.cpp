@@ -5,18 +5,6 @@
 
 #include <algorithm>
 
-/**********************************/
-/*entityMang *entityMang::s_entityMang = nullptr;
-
-  entityMang *entityMang::getInstance(){
-  if (s_entityMang == nullptr){
-  s_entityMang = new entityMang();
-  GTRACE("Entity Manager constructor called");
-  }
-  return s_entityMang;
-  }*/
-/**********************************/
-
 entityMang::entityMang(){
     GTRACE("Entity Manager constructor called");
 }

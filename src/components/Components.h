@@ -9,10 +9,12 @@
 //#include <ncurses.h>
 
 
-#include <filesystem>   //non includerlo qui???
+//#include <filesystem>   //non includerlo qui???
 #include <vector>
 //#include <string>
 //#include "../core/logger.h"
+
+//trasferire tutte queste classi in struct?
 
 class Components {
     public:
@@ -62,13 +64,23 @@ class CWindow : public virtual Components {
         cchar_t borderCh[8];
         cchar_t boxCh[2];
 
-        WINDOW* win = stdscr;      //window referred to
+        WINDOW* win = nullptr;      //window referred to
                                     //if not set refer to std window
 };
 
 class CCursorPosition : public virtual Components {
     public:
         int x = 0, y = 0;
+};
+
+#include "../assets/assetsConstant.h"
+
+class CTexture : public virtual Components {
+    public:
+        CTexture();
+        CTexture(TEXTURE_NAME tag) : name(tag) {}
+        
+        TEXTURE_NAME name;
 };
 
 class CAnimation : public virtual Components {

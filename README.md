@@ -6,7 +6,13 @@
 - Ncurses library
 - ECS: Entity, Component, Systems
 - Makefile [^1]
+- Complete documenatation (with uml diagrams for a fast overview)
 - The Game engine is not a library [^2]
+- Simple battleship game made with the engine
+
+Other spec:
+- main loop single threaded
+- limit fps
 
 [^1]: In future CMake.
 [^2]: For simplicity's sake, but it's _easly_ implementable.
@@ -53,6 +59,7 @@ The main compiling flags are:
 4. AI
 5. Renderer
 
+
 # Writing Convenctions:
 - sructs name: small letters with maiusc letter to separate 
 - enum name, enum value: maiusc name with `_` as separator
@@ -60,23 +67,26 @@ The main compiling flags are:
 - private data member start with `m_` and `s_` for static
 
 # TODO
-1. ~~Multi scene managment~~
-2. ~~Action managment~~
-3. ~~Game loop~~
-4. Add custom assertions
-5. Add custom memory allocator
-6. ~~Assets managment~~
-7. ~~Riorganizzare l'ordine nelle cartelle del progetto~~
-8. Ricontrollare le incluzioni negli header file
-9. ~~Cambiare il vettore di shared pointer di entity in altro (vettore di puntatori normali?)~~
-10. ~~Implementare la rimozione delle entità nell'entity manager~~
-11. ~~Add wide character compatibility for ncurses~~
-12. Implementare la prima scena di un menu
-13. implementare la scena di gioco
-14. Implementare la logica di gioco
-15. Implementare la scena pausa
-16. spostare tutte le definizioni degli enum nei corrispettivi header file ???
-17. ~~rinominare la classe `scenaBase` in `scene`~~
+No particular order:
+- ~~Multi scene managment~~
+- ~~Action managment~~
+- ~~Game loop~~
+- ~~Add custm logger~~
+- Add custom assertions
+- Add custom memory allocator
+- ~~Assets managment~~
+- ~~Riorganizzare l'ordine nelle cartelle del progetto~~
+- Ricontrollare le incluzioni negli header file
+- ~~Cambiare il vettore di shared pointer di entity in altro (vettore di puntatori normali?)~~
+- ~~Implementare la rimozione delle entità nell'entity manager~~
+- ~~Add wide character compatibility for ncurses~~
+- Implementare la prima scena di un menu
+- implementare la scena di gioco
+- Implementare la logica di gioco
+- Implementare la scena pausa
+- spostare tutte le definizioni degli enum nei corrispettivi header file ???
+- ~~rinominare la classe `scenaBase` in `scene`~~
+- Add licence to the repository
 
 # Future Optimizations
 - custom memory allocator, array?, vector, math, phisics library

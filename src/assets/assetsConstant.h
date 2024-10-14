@@ -3,7 +3,8 @@
 
 enum TEXTURE_NAME {
     NONE,
-    BASE,
+    TITLE,
+
     NUMBER_TEXTURE_NAME_DO_NOT_USE
 };
 

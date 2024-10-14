@@ -11,6 +11,11 @@
 #include "../actions/action.h"
 #include <cstdlib> //size_t
 
+//NOTE: is not efficient but it's a terminal game engine...
+//#include <sys/time.h>
+#include <chrono>
+#include <thread>
+
 /**********************************/
 gameEngine* gameEngine::s_gameEngine = nullptr;
 
@@ -45,14 +50,46 @@ void gameEngine::run() {
 
     int ch;
     ACTION_NAME actionName;
+    std::chrono::milliseconds previous = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+    std::chrono::milliseconds current;
+    std::chrono::milliseconds elapsed;
+    std::chrono::milliseconds lag = std::chrono::milliseconds::zero();
+    
+    std::chrono::milliseconds msUpdate = std::chrono::milliseconds(1000/30);
+    
+    //bool test = true;
 
     //main game loop
     while (m_running) {
+        /*test = !test;
+        if (test) {
+            mvwprintw(stdscr, 1, 1, " ");
+        } else { 
+            mvwprintw(stdscr, 1, 1, "O");
+        }*/
+        
+
+        
+        wrefresh(stdscr);
+
+        //timesteps
+        current = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+        elapsed = current - previous;
+        previous = current;
+        lag = lag + elapsed;
+        
+        //while (lag >= msUpdate){
         //first in main loop
-        m_scenes[m_currentScene]->update();
+            m_scenes[m_currentScene]->update();
+            lag -= msUpdate;
+        //}
+        if (elapsed < msUpdate) {
+            std::this_thread::sleep_for(msUpdate-elapsed);
+        }
 
         ch = getch();
-
+        
+ 
         if (ch != ERR){
             //printw("%d\n", ch);
             //GDEBUG("Pressed: %d", ch);
@@ -86,9 +123,12 @@ void gameEngine::run() {
 
 void gameEngine::changeScene(SCENE_TAG tag, scene* scene) {
     //TODO: controllare che non si stiano copiando dati inutilmente (specialmente che non si stia copiando l'intera "scene")
-    //TODO: aggiungere controlli
+    //TODO: aggiungere controllia
+    GDEBUG("Here");
     m_currentScene = tag;
+    GDEBUG("Here");
     m_scenes[tag] = scene;
+    GDEBUG("Here");
 }
 
 scene* gameEngine::currentScene() const {

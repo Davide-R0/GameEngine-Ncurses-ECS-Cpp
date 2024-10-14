@@ -34,7 +34,6 @@ class scene {
         assets* getAssets(); //modifiable
         
         bool isPaused() const;
-        
 
         //devono essere pubblico o privato???
         //can be private if initialized in the constructor in create a get function

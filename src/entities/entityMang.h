@@ -17,11 +17,6 @@ class entity;
 
 class entityMang {
     public:
-        /**********************************/
-        /*entityMang(const entityMang &other) = delete;
-        void operator=(const entityMang&) = delete;
-        static entityMang *getInstance();*/
-        /**********************************/
         entityMang();
         ~entityMang();
 
@@ -32,13 +27,7 @@ class entityMang {
         const std::vector<entity*>& getEntities() const;
         const std::vector<entity*>& getEntities(const ENTITY_TYPE& tag) const;
         
-        
     private:
-        /**********************************/
-        /*entityMang() {}
-        static entityMang* s_entityMang;*/
-        /**********************************/
-        
         std::vector<entity*> m_entities;
         std::vector<entity*> m_toAdd;
         //std::vector<entity*> m_toRemove;

@@ -30,23 +30,27 @@ bool assets::addNcTexture(TEXTURE_NAME name, std::filesystem::path path) {
     std::string line;
 
     std::getline(file, line);
-    lenLine[name] = line.length();
-    nLine[name] = 0;
-
+    
     do {
-        if ((int)line.length() != lenLine[name]) GERROR("Texture Asset with name %d in path: %s have not the right format", name, path.c_str());
-        m_texture[name] += line.c_str();
-        nLine[name]++;
+        //TODO: ricontrollare perchè non funziona il controllo
+        //GINFO("line lenght %d, m_texture[].lineLen %d", (int)line.length() , m_texture[name].lenLine);
+        //if ((int)line.length() != m_texture[name].lenLine) GERROR("Texture Asset with name %d in path: %s have not the right format", name, path.c_str());
+        m_texture[name].push_back(line.c_str());
         //GINFO("Line %d, content %s", nLine[name], line.c_str());
     } while (std::getline(file, line));
     
     //to normalize the numbering convenction
-    nLine[name]--;
-    lenLine[name]--;
+    //m_texture[name].nLine--;
+    //m_texture[name].lenLine--;
 
     file.close();
 
     //GINFO("Number of character per line: %d and number of line: %d content: %s", lenLine[name], nLine[name], m_texture[name].c_str());
 
     return true;
+}
+
+const std::vector<std::string>* assets::getTexture(TEXTURE_NAME name) const {
+    //TODO: add checks
+    return &m_texture[name];
 }
