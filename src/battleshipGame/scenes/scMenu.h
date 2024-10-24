@@ -3,9 +3,9 @@
 
 #include "../../scenes/scene.h"
 #include <cstdlib>
-#include "sMenu.h"
+//#include "sMenu.h"
+#include "textlist.h"
 class entity;
-
 //TODO: rinominare getAssets() to getAssetManager()
 
 class scMenu : public virtual scene {
@@ -21,8 +21,8 @@ class scMenu : public virtual scene {
         //ncurses utlity
         entity* m_focusWindow;
         
-        menu* m_menu;
-
+        //menu* m_menu;   //deprecated
+        textlist* m_mainMenu;
         //entity* m_player;
         //player config
         //level path: string
@@ -34,7 +34,7 @@ class scMenu : public virtual scene {
 
         //systems
         void sStaticNcRender(); //render called only at the begining of the scene
-        void sImageNcRender(entity* ent);
+        void sbImageNcRender(entity* ent);      //sb stands for sub-system
         void sRender(); //it must be always implemented!
         void sAnimation();
         void sMovement();

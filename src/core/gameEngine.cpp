@@ -61,15 +61,6 @@ void gameEngine::run() {
 
     //main game loop
     while (m_running) {
-        /*test = !test;
-        if (test) {
-            mvwprintw(stdscr, 1, 1, " ");
-        } else { 
-            mvwprintw(stdscr, 1, 1, "O");
-        }*/
-        
-
-        
         wrefresh(stdscr);
 
         //timesteps
@@ -93,7 +84,7 @@ void gameEngine::run() {
         if (ch != ERR){
             //printw("%d\n", ch);
             //GDEBUG("Pressed: %d", ch);
-            
+            GDEBUG("action done!");
             actionName = currentScene()->getActionName(ch);
             
             if (actionName != 0) {   //0 means no action (see the enum ACTION_NAME)
@@ -105,7 +96,7 @@ void gameEngine::run() {
                 m_running = false;
             }
         }
-        
+
         /*
         //pause functonality for the entire game engine??
         if(!m_scenes[m_currentScene].isPaused()){
@@ -123,12 +114,9 @@ void gameEngine::run() {
 
 void gameEngine::changeScene(SCENE_TAG tag, scene* scene) {
     //TODO: controllare che non si stiano copiando dati inutilmente (specialmente che non si stia copiando l'intera "scene")
-    //TODO: aggiungere controllia
-    GDEBUG("Here");
-    m_currentScene = tag;
-    GDEBUG("Here");
+    //TODO: aggiungere controlli
+    m_currentScene = tag;   //BUG: addres not accessible
     m_scenes[tag] = scene;
-    GDEBUG("Here");
 }
 
 scene* gameEngine::currentScene() const {

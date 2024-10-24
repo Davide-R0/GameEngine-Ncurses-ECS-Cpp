@@ -9,14 +9,16 @@
 #include "../../actions/actionConstants.h"
 #include "../../assets/assets.h"
 #include "../../scenes/sceneConstants.h"
-#include "sMenu.h"
+//#include "sMenu.h"
 
 #include "scPlay.h"
+#include "textlist.h"
 
 //wide character ncurses varaint
 //#define NCURSES_WIDECHAR 1    //???
 //#define _XOPEN_SOURCE 700 
 #include <ncursesw/ncurses.h>
+#include <string>
 
 scMenu::scMenu() {
  GTRACE("Scene play class constructor called");
@@ -40,11 +42,12 @@ scMenu::~scMenu() {
 void scMenu::update() {
     m_entityMang->update();
 
-    wmove(m_focusWindow->getComponent<CWindow>()->win, m_focusWindow->getComponent<CCursorPosition>()->y, m_focusWindow->getComponent<CCursorPosition>()->x); //move cursor
+    //wmove(m_focusWindow->getComponent<CWindow>()->win, m_focusWindow->getComponent<CCursorPosition>()->y, m_focusWindow->getComponent<CCursorPosition>()->x); //move cursor
 
     if (!isPaused()) {
         //call systems ...
     }
+    //sStaticNcRender();
 
     m_currentFrame++;
 }
@@ -122,8 +125,6 @@ void scMenu::init() {
 
     m_entityMang->update();
 
-    
-
     //menu window
     m_entityMang->getEntities(WINDOW_REND)[0]->addComponent<CWindow>(new CWindow());
     m_entityMang->getEntities(WINDOW_REND)[0]->addComponent<CCursorPosition>(new CCursorPosition());
@@ -133,7 +134,55 @@ void scMenu::init() {
     window->x = (int)((xScr - window->dimX)/2);
     window->y = image_window->y + image_window->dimY + 3;
     window->border = false;
-    //menu initialization
+    
+    //main menu initialization
+    text_list_info info;
+    info.vertical = true;
+    info.simpleText = false;
+    info.window = m_entityMang->getEntities(WINDOW_REND)[0];
+    m_mainMenu = new textlist(info);
+
+    //add entries list
+    std::vector<std::string> ent;
+    ent = {
+        "┏┓      ",
+        "┗┓╋┏┓┏┓╋",
+        "┗┛┗┗┻┛ ┗"
+    };
+    m_mainMenu->addAssetEntries(ent);
+
+    ent = {
+        "┳┳┓  ┓ •  ┓        ",
+        "┃┃┃┓┏┃╋┓┏┓┃┏┓┓┏┏┓┏┓",
+        "┛ ┗┗┻┗┗┗┣┛┗┗┻┗┫┗ ┛ ",
+        "        ┛     ┛    "
+    };
+    m_mainMenu->addAssetEntries(ent);
+
+    ent = {  
+        "┳  ┏  ",
+        "┃┏┓╋┏┓",
+        "┻┛┗┛┗┛"
+    };
+    m_mainMenu->addAssetEntries(ent);
+    
+    ent = {  
+        "┏┓    •     ",
+        "┗┓┏┓╋╋┓┏┓┏┓┏",
+        "┗┛┗ ┗┗┗┛┗┗┫┛",
+        "          ┛ "
+    };
+    m_mainMenu->addAssetEntries(ent);
+
+    ent = {
+        "┏┓  • ",
+        "┣ ┓┏┓╋",
+        "┗┛┛┗┗┗"
+    };
+    m_mainMenu->addAssetEntries(ent);
+
+
+    /*//menu initialization
     m_menu = new menu();    
     //TODO: passare l'asset manager con il contenuto voluto
     m_menu->attachWindow(m_entityMang->getEntities(WINDOW_REND)[0]);
@@ -172,6 +221,7 @@ void scMenu::init() {
         "┗┛┛┗┗┗"
     };
     m_menu->addEntry(ent);
+    */
 
     //command window
     m_entityMang->getEntities(WINDOW_REND)[1]->addComponent<CWindow>(new CWindow());
@@ -186,6 +236,7 @@ void scMenu::init() {
     //Ncurses rendering 
     sStaticNcRender();
 
+    //NOTE: a cosa serve qui?
     m_focusWindow = m_entityMang->getEntities(WINDOW_REND)[0];
     m_focusWindow->getComponent<CCursorPosition>()->x = 1;
     m_focusWindow->getComponent<CCursorPosition>()->y = 1;
@@ -195,6 +246,7 @@ void scMenu::init() {
     m_entityMang->update();
     
     //rendering command window
+    //TODO: make with the textlist class
     entity* cmd_window = m_entityMang->getEntities(WINDOW_REND)[1];
     std::string cmd_message = "Exit: ^C     Up: 'w'    Down: 's'     Select: Enter or 'd'   Back: Esc or 'a'";
     std::vector<std::string> cmdMessages = {
@@ -212,9 +264,6 @@ void scMenu::init() {
         initialOffset += spacing + cmdMessages.at(i).size();
     }
     wattroff(cmd_window->getComponent<CWindow>()->win, A_STANDOUT);
-    /*wattron(cmd_window->getComponent<CWindow>()->win, A_STANDOUT);
-    mvwprintw(cmd_window->getComponent<CWindow>()->win, 1, 1, "%s", cmd_message.c_str());
-    wattroff(cmd_window->getComponent<CWindow>()->win, A_STANDOUT);*/
     wrefresh(cmd_window->getComponent<CWindow>()->win);
     
     //cursor visibility
@@ -223,6 +272,7 @@ void scMenu::init() {
                     //2 = always
  
 }
+
 /*
 void scPlay::sPrintwNc(int x, int y, string...){
     //stanpa la stringa sulla finestra attualmente con focus (m_windowOnFOcus) e fa una serie di verifiche per i bordi e fine della finestra
@@ -231,68 +281,15 @@ void scPlay::sPrintwNc(int x, int y, string...){
 
 void scMenu::sStaticNcRender() {
     
-    //Image rendring
+    //Image rendring window 
     for (auto e : m_entityMang->getEntities(IMAGE)) {
-        //if (e->isToRender()) { ...
-        CWindow* windowToRender = e->getComponent<CWindow>();
-
-        windowToRender->win = newwin(windowToRender->dimY, windowToRender->dimX, windowToRender->y, windowToRender->x);
-        refresh();
-        int border_offset = 0;
-        //border rendering 
-        if (windowToRender->box == true && windowToRender->border == true) {
-            GERROR("Setted both box and border true to the CWindow() component");
-            border_offset ++;
-        } else if (windowToRender->border == true) {
-            //full 7 character border
-            if (windowToRender->win == nullptr) {
-                //std window border
-                border_set(&windowToRender->borderCh[0], &windowToRender->borderCh[1], &windowToRender->borderCh[2], &windowToRender->borderCh[3], 
-                           &windowToRender->borderCh[4], &windowToRender->borderCh[5], &windowToRender->borderCh[6], &windowToRender->borderCh[7]);
-            
-            } else {        
-                wborder_set(windowToRender->win, &windowToRender->borderCh[0], &windowToRender->borderCh[1], &windowToRender->borderCh[2], &windowToRender->borderCh[3], 
-                                                 &windowToRender->borderCh[4], &windowToRender->borderCh[5], &windowToRender->borderCh[6], &windowToRender->borderCh[7]);
-            } 
-            border_offset ++;
-        } else if (windowToRender->box == true){
-            //2 character border
-            //GDEBUG("------Rendering simple box");
-            box_set(windowToRender->win, &windowToRender->boxCh[0], &windowToRender->boxCh[1]);
-            border_offset ++;
-        }
-
-        //set initial cursor positions
-        /*
-        if (windowToRender->box == true || windowToRender->border == true) {
-            e->getComponent<CCursorPosition>()->x =2; //2,2 per il bordo
-            e->getComponent<CCursorPosition>()->y =2; 
-        } else {
-            e->getComponent<CCursorPosition>()->x =0;
-            e->getComponent<CCursorPosition>()->y =0;
-        }*/
-        
-        //image rendering:
-        //...
-        const std::vector<std::string>* image_asset = getAssets()->getTexture(e->getComponent<CTexture>()->name);
-        //GINFO("%s", image_asset->texture.c_str());
-        //only for window with border
-        for(std::size_t i = 0; i<image_asset->size(); i++) {
-            //i*lenLine -> i*(lenLine+1)
-            //image_asset->texture
-            //TODO: importare i dati effettivi
-            mvwprintw(windowToRender->win, i+border_offset, border_offset, "%s", image_asset->at(i).c_str());
-        }
-
-
-        wrefresh(windowToRender->win);
-        //refresh();
+         sbImageNcRender(e);
     }
 
+    
 
+    //other window rendering 
     for (auto e : m_entityMang->getEntities(WINDOW_REND)) {
-        //GDEBUG("------Rendering window");
-        //if (e->isToRender()) { ...
         CWindow* windowToRender = e->getComponent<CWindow>();
 
         windowToRender->win = newwin(windowToRender->dimY, windowToRender->dimX, windowToRender->y, windowToRender->x);
@@ -310,22 +307,57 @@ void scMenu::sStaticNcRender() {
                                                  &windowToRender->borderCh[4], &windowToRender->borderCh[5], &windowToRender->borderCh[6], &windowToRender->borderCh[7]);
             } 
         } else if (windowToRender->box == true){
-            //2 character border
-            //GDEBUG("------Rendering simple box");
             box_set(windowToRender->win, &windowToRender->boxCh[0], &windowToRender->boxCh[1]);
         }
         
-        m_menu->renderMenu();
+        //adjust
+        m_mainMenu->sRenderMenu();
 
         wrefresh(windowToRender->win);
-        //refresh();
     }
 }
 
-void scMenu::sImageNcRender(entity* ent) {
-    
-    //print the same image?
+void scMenu::sbImageNcRender(entity* ent) {
+    CWindow* windowToRender = ent->getComponent<CWindow>();
 
+    //if (windowToRender == nullptr){
+        windowToRender->win = newwin(windowToRender->dimY, windowToRender->dimX, windowToRender->y, windowToRender->x);
+        refresh();
+    //}
+
+    int border_offset = 0;
+
+    //border rendering 
+    if (windowToRender->box == true && windowToRender->border == true) {
+        GERROR("Setted both box and border true to the CWindow() component");
+        border_offset ++;
+    } else if (windowToRender->border == true) {
+        //full 7 character border
+        if (windowToRender->win == nullptr) {
+            //std window border
+            border_set(&windowToRender->borderCh[0], &windowToRender->borderCh[1], &windowToRender->borderCh[2], &windowToRender->borderCh[3], 
+                    &windowToRender->borderCh[4], &windowToRender->borderCh[5], &windowToRender->borderCh[6], &windowToRender->borderCh[7]);
+
+        } else {        
+            wborder_set(windowToRender->win, &windowToRender->borderCh[0], &windowToRender->borderCh[1], &windowToRender->borderCh[2], &windowToRender->borderCh[3], 
+                    &windowToRender->borderCh[4], &windowToRender->borderCh[5], &windowToRender->borderCh[6], &windowToRender->borderCh[7]);
+        } 
+        border_offset ++;
+    } else if (windowToRender->box == true){
+        //2 character border
+        //GDEBUG("------Rendering simple box");
+        box_set(windowToRender->win, &windowToRender->boxCh[0], &windowToRender->boxCh[1]);
+        border_offset ++;
+    }
+
+    //image rendering:
+    const std::vector<std::string>* image_asset = getAssets()->getTexture(ent->getComponent<CTexture>()->name);
+    for(std::size_t i = 0; i<image_asset->size(); i++) {
+        mvwprintw(windowToRender->win, i+border_offset, border_offset, "%s", image_asset->at(i).c_str());
+    }
+
+    wrefresh(windowToRender->win); 
+    //print the same image?
 }
 
 
@@ -373,18 +405,31 @@ void scMenu::sDoAction(const action* act) {
     if (act->getName() == 1) {   
         //wprintw(m_focusWindow->getComponent<CWindow>()->win, "w pressed");
         //menu up
-        m_menu->moveUp();
+        //m_menu->moveUp();
         //m_game->changeScene(a, new scPlay());
-
+        m_mainMenu->movePrev();
     } else if (act->getName() == 2) {   
         //wprintw(m_focusWindow->getComponent<CWindow>()->win, "s pressed");
         //menu down
-        m_menu->moveDown();
-
+        //m_menu->moveDown();
+        m_mainMenu->moveNext();
      } else if (act->getName() == 3) {   
         //wprintw(m_focusWindow->getComponent<CWindow>()->win, "d pressed");
         //nothing
-
+        switch (m_mainMenu->getSelect()) {
+            case 0:
+                GDEBUG("------first selected");
+                m_game->changeScene((SCENE_TAG)PLAY, new scPlay());
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        };
     } else if (act->getName() == 4) {   
         //wprintw(m_focusWindow->getComponent<CWindow>()->win, "a pressed");
         //nothing

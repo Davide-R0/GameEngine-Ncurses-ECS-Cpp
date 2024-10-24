@@ -4,7 +4,7 @@
 enum TEXTURE_NAME {
     NONE,
     TITLE,
-
+    LIST,
     NUMBER_TEXTURE_NAME_DO_NOT_USE
 };
 

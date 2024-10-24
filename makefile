@@ -2,7 +2,7 @@
 #- `-k` continue to compile even if it encounters error
 
 CPP := g++
-CPPFLAGS := -Wall -g 
+CPPFLAGS := -Wall -Wextra -g 
 
 #ncurses wide caracter varaint library
 LDFLAGS := -lncursesw -ltinfow 
@@ -16,6 +16,7 @@ SRC_DIR := ./src
 SRCS := $(shell find $(SRC_DIR) -name '*.cpp')
 
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+#OBJS:=$(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Every folder in ./src will need to be passed to GCC so that it can find header files
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)

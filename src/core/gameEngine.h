@@ -23,8 +23,7 @@ class gameEngine {
         //NOTE: in this case assets are loaded one (because light) and not per each scene
         //otherwise this should have been in the sceneBase class
         //assets& getAssets();
-
-    private:
+            private:
         /**********************************/
         gameEngine() {}
         static gameEngine* s_gameEngine;
@@ -34,6 +33,7 @@ class gameEngine {
         scene* currentScene() const;
         scene* m_scenes[NUMBER_SCENE_TAG_DO_NOT_USE] = {};
         SCENE_TAG m_currentScene;
+
         bool m_running = true;
 
         //NOTE: in this case assets are loaded one (because light) and not per each scene

@@ -2,13 +2,15 @@
 #define GMEMORY_H
 
 #include "defines.h"
+#include <stdlib.h>
+#include <list>
 
 enum memory_tag {
     MEMORY_TAG_UNKNOW,
     MEMORY_TAG_APPLICATION,
     MEMORY_TAG_GAME,
     MEMORY_TAG_ENTITY,
-    
+
     NUMBER_MEMORY_TAG_DO_NOT_USE
 };
 
@@ -38,5 +40,15 @@ static inline void gfree(void* block, unsigned long long int size, memory_tag ta
 
 //debug
 char* getGMemoryUsageStr();
+
+
+//new and delete
+#ifndef NDEBUG
+#define DEBUG_NEW new(__FILE__, __LINE__)
+#else
+#define DEBUG_NEW new
+#endif
+#define new DEBUG_NEW
+
 
 #endif 
