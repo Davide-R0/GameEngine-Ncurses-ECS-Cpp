@@ -19,11 +19,14 @@ class gameEngine {
         //void quit();
         void changeScene(SCENE_TAG tag, scene* scene);
         void sUserInput();
+        
+        //momentaneo
+        
 
         //NOTE: in this case assets are loaded one (because light) and not per each scene
         //otherwise this should have been in the sceneBase class
         //assets& getAssets();
-            private:
+    private:
         /**********************************/
         gameEngine() {}
         static gameEngine* s_gameEngine;

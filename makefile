@@ -2,7 +2,10 @@
 #- `-k` continue to compile even if it encounters error
 
 CPP := g++
-CPPFLAGS := -Wall -Wextra -g 
+CPPFLAGS := -Wall -Wextra 
+#CPPFLAGS += -Werror 
+CPPFLAGS += -g 
+#-pg 	#profiling gprof 
 
 #ncurses wide caracter varaint library
 LDFLAGS := -lncursesw -ltinfow 

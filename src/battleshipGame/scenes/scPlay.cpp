@@ -46,7 +46,11 @@ void scPlay::update() {
 }
 
 void scPlay::init() {
-     GDEBUG("Init scene PLAY");
+    GDEBUG("Init scene PLAY");
+        
+    //set scene tag
+    setTag(PLAY);
+
     //Initialization assets
     //getAssets()->addNcTexture(BASE, "assets/textures/texture.txt");
 

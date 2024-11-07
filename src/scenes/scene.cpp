@@ -1,6 +1,7 @@
 #include "scene.h"
 #include "../core/gameEngine.h"
 #include "../core/logger.h"
+#include "sceneConstants.h"
 #include <cstdlib> //size_t
 //wide character ncurses varaint
 #include <ncursesw/ncurses.h>
@@ -41,4 +42,28 @@ bool scene::isPaused() const {
 
 assets* scene::getAssets() {
     return m_assets;
+}
+
+SCENE_TAG scene::getTag() const {
+    return m_sceneTag;
+}
+
+void scene::setTag(SCENE_TAG tag){
+    m_sceneTag = tag;
+}
+
+bool scene::getChangeSceneFlag() const {
+    return m_changeSceneFlag;
+}
+
+scene* scene::getNewScene() const {
+    return m_sceneToChange;
+}
+
+void scene::setChangeSceneFlag() {
+    m_changeSceneFlag = true;
+}
+
+void scene::setNewScene(scene* newScene) {
+    m_sceneToChange = newScene;
 }

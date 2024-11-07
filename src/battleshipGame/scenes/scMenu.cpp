@@ -1,7 +1,7 @@
 #include "scMenu.h"
 #include "../../core/logger.h"
 #include "../../core/asserts.h"
-#include "../../core/gameEngine.h"
+//#include "../../core/gameEngine.h"
 #include "../../entities/entity.h"
 #include "../../entities/entityMang.h"
 #include "../../components/Components.h"
@@ -21,9 +21,8 @@
 #include <string>
 
 scMenu::scMenu() {
- GTRACE("Scene play class constructor called");
+    GTRACE("Scene play class constructor called");
     init();
-
 }
 
 scMenu::~scMenu() {
@@ -40,6 +39,8 @@ scMenu::~scMenu() {
 //before a scene change call a prerendering function to render the static object on the screen (like the board, the windows, ecc..)
 
 void scMenu::update() {
+    
+
     m_entityMang->update();
 
     //wmove(m_focusWindow->getComponent<CWindow>()->win, m_focusWindow->getComponent<CCursorPosition>()->y, m_focusWindow->getComponent<CCursorPosition>()->x); //move cursor
@@ -53,6 +54,11 @@ void scMenu::update() {
 }
 
 void scMenu::init() {
+    GDEBUG("Init scene MENU");
+
+    //set scene tag
+    setTag(MENU);
+
     //Initialization assets
     //Upload assets for the title 
     
@@ -270,7 +276,7 @@ void scMenu::init() {
     curs_set(0);    //0 = invisible
                     //1 = terminal specific
                     //2 = always
- 
+    GDEBUG("End init Sene MENU"); 
 }
 
 /*
@@ -419,7 +425,9 @@ void scMenu::sDoAction(const action* act) {
         switch (m_mainMenu->getSelect()) {
             case 0:
                 GDEBUG("------first selected");
-                m_game->changeScene((SCENE_TAG)PLAY, new scPlay());
+                setChangeSceneFlag();
+                setNewScene(new scPlay());
+                //m_game->changeScene((SCENE_TAG)PLAY, new scPlay());
                 break;
             case 1:
                 break;

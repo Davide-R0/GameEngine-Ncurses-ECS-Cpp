@@ -16,11 +16,11 @@ class scMenu : public virtual scene {
         //must always be implemented!
         void update();
         void sDoAction(const action* act);
-
+        
     private:
         //ncurses utlity
         entity* m_focusWindow;
-        
+
         //menu* m_menu;   //deprecated
         textlist* m_mainMenu;
         //entity* m_player;
